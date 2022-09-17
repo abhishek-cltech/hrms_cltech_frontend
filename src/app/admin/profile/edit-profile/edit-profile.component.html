@@ -1,0 +1,41 @@
+    <div class="wrapper" >
+        <div class="page-title-wrapper">
+             <app-heading [headingTitle]="title" [backUrl]="backUrl"></app-heading>
+             <div >
+                <div fxFlex="row" fxLayoutAlign=" space-between center" fxLayoutGap="0.5rem">
+                    <app-save-button [myForm]="form" (childSaveSubmit)="save()"></app-save-button>
+                    <button mat-raised-button  (click)="navigateToResetPasswordPage()">Change Password</button>
+                </div>
+             </div>
+
+         </div>
+        <div class="card overflow-auto">
+                  <div class="card-body">
+               <form [formGroup]="form">
+                <div fxLayout="row" fxLayoutAlign="space-between" class="sm-d-block">
+                    <mat-form-field appearance="outline"  fxFlex="50" floatLabel="always" class="pr-4" >
+                        <mat-label>First Name</mat-label>
+                        <input  matInput placeholder="First Name" name="firstName" formControlName="firstName" >
+                        <mat-error *ngIf="form.get('firstName')?.hasError('required')">
+                            It is required
+                        </mat-error>
+                        <mat-error *ngIf="form.get('firstName')?.hasError('minlength')">
+                          atleast 3 character allowed
+                        </mat-error>
+                    </mat-form-field>
+                 
+                    <mat-form-field appearance="outline"  fxFlex="50" floatLabel="always" class="pl-4" >
+                        <mat-label>Last Name</mat-label>
+                        <input  matInput placeholder="Last Name" name="lastName" formControlName="lastName">
+                        <mat-error *ngIf="form.get('lastName')?.hasError('required')">
+                            It is required
+                        </mat-error>
+                        <mat-error *ngIf="form.get('lastName')?.hasError('minlength')">
+                            atleast 3 character allowed
+                          </mat-error>
+                    </mat-form-field>
+                </div>
+               </form>
+                  </div>
+               </div>
+      </div>

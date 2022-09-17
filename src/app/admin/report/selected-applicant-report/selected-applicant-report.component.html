@@ -1,0 +1,16 @@
+<div  class="wrapper">
+  <div class="page-title-wrapper">
+    <app-grid-heading [headingTitle]="title" ></app-grid-heading>
+</div>
+  <div clss="card">
+    <div class="card-body bg-white shadow rounded table-responsive w-100 ">
+      <table #table datatable [dtOptions]="dtOptions"  class="table table-bordered table-striped row-border hover table-hover ">
+        <tbody *ngIf="employees?.length == 0">
+          <tr>
+            <td colspan="8" class="no-data-available text-lg-center">No Data Found!</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

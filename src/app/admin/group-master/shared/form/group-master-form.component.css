@@ -1,0 +1,13 @@
+@media only screen and (max-device-width: 600px) {
+    .sm-d-block {
+        display: block !important;
+    }
+    .mat-form-field {
+        width: 100%;
+        max-width: 100% !important;
+        margin-left: 0 !important;
+        padding-left: 0 !important;
+    }
+}
+  
+  

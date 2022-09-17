@@ -1,0 +1,36 @@
+<div id="form" class="wrapper" >
+    <div class="page-title-wrapper">
+         <app-grid-heading [headingTitle]="title" ></app-grid-heading>
+     </div>
+    <div class="card overflow-auto">
+              <div class="card-body p-2">
+               <div class="box-container" fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="center center" >
+                  <div  fxLayout="column" fxLayoutAlign="center start"  class="box1"> 
+                    <h2 class="m-0 p-0 d-flex align-self-center ">Applicant</h2>
+                    <div  fxLayout="row">
+                        <button mat-icon-button><i class="fa-solid fa-2x fa-file"></i></button>
+                        <h2 class="total-resume">{{dashboardData?.totalResume}}</h2>
+                    </div>
+                    <div class="ml-2">
+                        <h2 class="p-0 m-0">Selected:{{dashboardData?.selectedResume}}</h2>
+                        <h2 class="m-0 p-0">Fresh:{{dashboardData?.freshResume}}</h2>
+                    </div>
+                  </div>
+                  <div  fxLayout="column" fxLayoutAlign="center start"  class="box2"> 
+                    <h2 class="m-0 p-0 d-flex align-self-center ">Recruiter</h2>
+                    <div  fxLayout="row">
+                        <button mat-icon-button><i class="fa-solid fa-users"></i>
+                        </button>
+                        <h2 class="total-resume">{{dashboardData?.totalRecruiter}}</h2>
+                    </div>
+                    <div class="ml-2">
+                        <h2 class="p-0 m-0">Assign:{{dashboardData?.recruiterHavingTask}}</h2>
+                        <h2 class="m-0 p-0">Not Assign:{{dashboardData?.recruiterWithoutTask}}</h2>
+                    </div>
+                  </div>
+               </div>
+              </div>
+           </div>
+  </div>
+
+  

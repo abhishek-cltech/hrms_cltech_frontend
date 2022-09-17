@@ -1,0 +1,15 @@
+  <div id="form" class="wrapper" >
+    <div class="page-title-wrapper">
+         <app-heading [headingTitle]="title" [backUrl]="dataTableUrl"></app-heading>
+         <app-save-button [myForm]="form" (childSaveSubmit)="save()"></app-save-button>
+     </div>
+    <div class="card overflow-auto">
+              <div class="card-body">
+                <form [formGroup]="form"  fxLayout="column" fxFlex>
+                 <app-register-user-form [myForm]="form"></app-register-user-form>
+                </form>
+              </div>
+           </div>
+  </div>
+
+  

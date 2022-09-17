@@ -1,0 +1,43 @@
+<div class="wrapper">
+  <div class="page-title-wrapper">
+    <div class=" page-title">{{title}}</div>
+    <div >
+      <button class="mr-1"  mat-raised-button  type="button" (click)="action('add',0)"> Add Group Master</button>
+    </div>
+   </div>
+  <div class="card">
+    <div class="card-body bg-white shadow rounded  table-responsive">
+      <!-- <div class="text-center">
+        <h2 style="color:rgb(4, 4, 97) ; font-family: 'Times New Roman', Times, serif; font-size: 1.5rem;">Recruiters</h2>
+      </div> -->
+      
+      <table datatable [dtOptions]="dtOptions" class="table  table-bordered table-striped table-hover">
+        <thead></thead>
+        <tbody *ngIf="groupMasters?.length != 0">
+          <tr *ngFor="let groupmaster of groupMasters">
+            <td>{{ groupmaster.id }}</td>
+            <td> {{(groupmaster.groupName)}}</td>
+            <td>{{ groupmaster.code }}</td>
+            <td >{{ groupmaster.value}}</td>
+            <td>
+              <div flxLayout="row"  fxLayoutAlign="center center" fxLayoutGap="0.2rem">
+                <div>
+                 <button mat-icon-button mat-raised-button color="primary" (click)="action('edit',groupmaster.id)"> <mat-icon  >edit</mat-icon></button>
+                </div>
+                <div>
+                   <button mat-icon-button mat-raised-button  color="primary" (click)="action('view',groupmaster.id)"><mat-icon>visibility</mat-icon></button>
+                </div>
+              </div>
+
+            </td>
+          </tr>
+        </tbody>
+        <tbody *ngIf="groupMasters?.length == 0">
+          <tr>
+            <td colspan="7" class="no-data-available text-lg-center">No Data Found!</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

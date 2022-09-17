@@ -1,0 +1,37 @@
+            <div [formGroup]="myForm" fxLayout="column" >
+                <div fxLayout="row" fxLayoutAlign="space-between" class="sm-d-block">
+                        <mat-form-field appearance="outline" fxFlex="50" floatLabel="always" class="pr-4" >
+                            <mat-label>ID</mat-label>
+                            <input [readonly]="true" matInput placeholder="Id" name="id" formControlName="id" >
+                        </mat-form-field>
+                      
+                        <mat-form-field appearance="outline" fxFlex="50" floatLabel="always" class="pl-4">
+                            <mat-label>Group Name</mat-label>
+                            <input  matInput placeholder="Group Name" name="groupName" formControlName="groupName">
+                            <mat-error *ngIf="myForm.get('groupName')?.hasError('required')">
+                                It is required
+                            </mat-error>
+                        </mat-form-field>
+                   
+                </div>
+                <div fxLayout="row" fxLayoutAlign="space-between" class="sm-d-block">
+                        <mat-form-field appearance="outline"  fxFlex="50" floatLabel="always" class="pr-4" >
+                            <mat-label>Code</mat-label>
+                            <input  matInput placeholder="Code" name="code" formControlName="code" >
+                            <mat-error *ngIf="myForm.get('code')?.hasError('required')">
+                                It is required
+                            </mat-error>
+                        </mat-form-field>
+                     
+                        <mat-form-field appearance="outline"  fxFlex="50" floatLabel="always" class="pl-4" >
+                            <mat-label>Value</mat-label>
+                            <input  matInput placeholder="Value" name="value" formControlName="value">
+                            <mat-error *ngIf="myForm.get('value')?.hasError('required')">
+                                It is required
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                <div fxLayout="column" fxLayoutAlign="space-between">
+                        <mat-slide-toggle  color="primary" matInput formControlName="active" [checked]="true">Active</mat-slide-toggle>
+                </div>
+          

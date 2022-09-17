@@ -1,0 +1,126 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "newProjectRoot": "projects",
+  "projects": {
+    "cltech_ui": {
+      "projectType": "application",
+      "schematics": {},
+      "root": "",
+      "sourceRoot": "src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/cltech_ui",
+            "index": "src/index.html",
+            "main": "src/main.ts",
+            "polyfills": "src/polyfills.ts",
+            "tsConfig": "tsconfig.app.json",
+            "allowedCommonJsDependencies": [
+              "moment",
+              "raf",
+              "rgbcolor",
+              "core-js",
+              "src"
+             ],
+            "assets": [
+              "src/favicon.ico",
+              "src/assets"
+            ],
+            "styles": [
+              "src/styles.css",
+              "node_modules/jqwidgets-ng/jqwidgets/styles/jqx.base.css",
+              "node_modules/datatables.net-bs5/css/dataTables.bootstrap5.min.css",
+              "node_modules/datatables.net-colreorder-dt/css/colReorder.dataTables.css",
+              "node_modules/datatables.net-buttons-dt/css/buttons.dataTables.css"
+            ],
+            "scripts": [
+              "node_modules/jquery/dist/jquery.min.js",
+              "node_modules/datatables.net/js/jquery.dataTables.min.js",
+              "node_modules/datatables.net-bs5/js/dataTables.bootstrap5.min.js",
+              "node_modules/datatables.net-colreorder/js/dataTables.colReorder.js",
+              "node_modules/jszip/dist/jszip.js",
+              "node_modules/datatables.net-buttons/js/dataTables.buttons.js",
+              "node_modules/datatables.net-buttons/js/buttons.colVis.js",
+              "node_modules/datatables.net-buttons/js/buttons.flash.js",
+              "node_modules/datatables.net-buttons/js/buttons.html5.js",
+              "node_modules/datatables.net-buttons/js/buttons.print.js"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "5mb",
+                  "maximumError": "8mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "75kb",
+                  "maximumError": "90kb"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod.ts"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "browserTarget": "cltech_ui:build:production"
+            },
+            "development": {
+              "browserTarget": "cltech_ui:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "cltech_ui:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "src/test.ts",
+            "polyfills": "src/polyfills.ts",
+            "tsConfig": "tsconfig.spec.json",
+            "karmaConfig": "karma.conf.js",
+            "assets": [
+              "src/favicon.ico",
+              "src/assets"
+            ],
+            "styles": [
+              "src/styles.css"
+            ],
+            "scripts": []
+          }
+        }
+      }
+    }
+  },
+  "cli": {
+    "analytics": "47a3747a-217b-4ff6-813a-153a82c0700e"
+  }
+}
