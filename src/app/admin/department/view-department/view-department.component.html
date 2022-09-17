@@ -1,0 +1,54 @@
+<div class="wrapper">
+    <div class="heading-div" >
+        <h2 class="m-0">{{data?.title}}</h2>
+        <button mat-icon-button  mat-dialog-close >
+            <mat-icon class="">close</mat-icon>
+        </button>
+    </div>
+        <div  class="container-fluid">
+           <div class="form-div">
+            <form [formGroup]="departmentForm">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <mat-form-field appearance="outline" floatLabel="always" >
+                            <mat-label>ID</mat-label>
+                            <input matInput placeholder="Id" name="id" formControlName="id" >
+                            <mat-error></mat-error>
+                        </mat-form-field>
+                      </div>
+                    <div class="col-lg-6">
+                        <mat-form-field appearance="outline" floatLabel="always" >
+                            <mat-label>Department</mat-label>
+                            <input matInput placeholder="Department" name="departmentName" formControlName="departmentName">
+                            <mat-error *ngIf="departmentForm.get('departmentName')?.hasError('required')">
+                                It is required
+                            </mat-error>
+                            <mat-error *ngIf="departmentForm.get('departmentName')?.hasError('minlength')">
+                                It is required
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-6">
+                       <mat-checkbox class="example-margin" formControlName="isActive" name="isActive">Active</mat-checkbox>
+                    </div>
+                </div>
+                  <hr class="mb-2"/>
+             <div class="d-flex justify-content-center align-content-center">
+                <div class="text-center mr-1">
+                    <button mat-raised-button color="primary" (click)="goToDepartmentGridPage()" type="button"
+                        >Back</button>
+                </div>
+
+                <div class="text-center ml-1 ">
+                    <button mat-raised-button color="accent" type="button" (click)="close()">Close</button>
+                </div>
+            </div>
+            </form>
+           </div>
+            
+        </div>
+
+    </div>

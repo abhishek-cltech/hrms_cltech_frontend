@@ -1,0 +1,68 @@
+<div  class="wrapper">
+  <div class="page-title-wrapper">
+    <div class=" page-title">{{title}}</div>
+    <div >
+      <button class="mr-1" mat-raised-button type="button" (click)="action('bulkUpload',-1)">Bulk Upload <mat-icon class="mb-1 ml-1">cloud_upload</mat-icon></button>
+      <button class="mr-1" mat-raised-button type="button" (click)="action('add',0)">Add Applicant</button>
+    </div>
+   </div>
+  <div clss="card">
+    <div class="card-body bg-white shadow rounded table-responsive w-100 ">
+      <table #table datatable [dtOptions]="dtOptions"  class="table table-bordered table-striped table-hover ">
+        <thead>
+          <!-- <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Salary</th>
+      <th>Department</th>
+      <th>Action</th>
+     
+    </tr> -->
+        </thead>
+        <tbody *ngIf="employees?.length != 0">
+          <tr *ngFor="let employee of employees">
+            <!-- <td>{{ (person.id==972)?"yes":person.id}}</td> -->
+
+            <td>{{ employee.id }}</td>
+            <td>{{ employee.name }}</td>
+            <td>{{ employee.email }}</td>
+            <td>{{ employee.phone }}</td>
+            <td>{{ employee.totalSkill }}</td>
+            <td>{{ employee.totalExperience}}</td>
+            <td>{{(employee.lookingFor)?employee.lookingFor:"N.A"}}</td>
+            <td>{{(employee.resumeStatusCode)?employee.resumeStatusCode:"N.A"}}</td>
+            <!-- <td>{{ person.lastName }}</td>
+      <td>{{ person.lastName }}</td> -->
+
+            <td>
+              <div fxLayout="row" fxFlexAlign="center center " fxLayoutGap="0.15rem">
+                <div>
+                  <!-- <button mat-raised-button color="primary" (click)="action('edit',employee.id)">Edit</button> -->
+                  <button mat-stroked-button mat-icon-button color="primary" (click)="action('edit',employee.id)"> <mat-icon  class="icon"  >edit</mat-icon></button>
+                </div>
+                <!-- <div>
+            <button mat-raised-button color="accent" (click)="action('view',employee.id)">View</button>
+          </div> -->
+               
+                <div>
+                  <!-- <button mat-raised-button color="warn" (click)="action('preview',employee.id)">Preview</button> -->
+                  <button mat-stroked-button mat-icon-button color="primary"  (click)="action('preview',employee.id)"><mat-icon  class="icon">insert_drive_file</mat-icon></button>
+                </div>
+                <div>
+                  <button  mat-stroked-button  mat-icon-button color="primary" (click)="openStatusDialog(employee.id,employee.resumeStatusCode)" ><mat-icon>list</mat-icon></button>
+                </div>
+              </div>
+
+            </td>
+          </tr>
+        </tbody>
+        <tbody *ngIf="employees?.length == 0">
+          <tr>
+            <td colspan="7" class="no-data-available text-lg-center">No Data Found!</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

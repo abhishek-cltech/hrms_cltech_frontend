@@ -1,0 +1,49 @@
+.wrapper{
+  width: 100%;  
+  height: 82.3vh
+}
+
+
+.page-title-wrapper{
+    background-color: rgb(3, 155, 229);
+    color: #fff;
+    padding: 1.5rem;
+    width: 100%;
+    display: flex;
+    justify-content:flex-start;
+    align-items: center;
+    
+}
+
+.page-title{
+    font-size: 1.5rem;
+    font-weight: 900;
+    font-family: 'Roboto Slab', serif;
+}
+
+input[type=file]{
+    padding:0.2rem 0.2rem;
+    box-sizing: border-box;
+}
+
+@media screen and (max-width: 600px) {
+    .heading-title{
+        text-shadow: 1px 1px 1px rgb(201, 198, 198);
+        font-family: 'Roboto Slab', serif;
+        font-weight: 600;
+        font-size: 1rem;
+    }
+
+    .smd-block{
+         display: flex!important;
+         flex-direction: column!important;
+         justify-content: space-evenly!important;
+         align-items: center!important;
+         height:22vh;
+         
+
+    }
+   
+
+  
+}

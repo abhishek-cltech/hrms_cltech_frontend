@@ -1,0 +1,27 @@
+<div class="wrapper">
+    <div class="heading-div" >
+        <h2 class="m-0">{{data?.title}}</h2>
+        <button mat-icon-button  (click)='close()'  class="ml-1">
+            <mat-icon class="">close</mat-icon>
+        </button>
+    </div>
+        <div fxLayout="column" fxFlexAlign="center center">
+            <form [formGroup]="form" (submit)="save()" class="form-div">
+                <div fxLayout="column">
+                        <mat-form-field appearance="outline" floatLabel="always" fxFlex="100" >
+                            <mat-label>{{data?.title}}</mat-label>
+                            <mat-select  matInput [placeholder]="data?.title" name="id" formControlName="resumeStatusCode" >
+                                <mat-option *ngFor="let groupMaster of data?.groupMasters" [value]="groupMaster.code">{{groupMaster.value}}</mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="form.get('resumeStatusCode')?.hasError('required')">
+                                It is required
+                            </mat-error>
+                        </mat-form-field>
+                </div>
+               <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="0.3rem" >
+                    <button mat-raised-button color="primary" class="" type="submit" [disabled]="form.invalid">Save</button>
+                    <button mat-raised-button color="accent" type="button" (click)="close()">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>

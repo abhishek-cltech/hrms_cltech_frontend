@@ -1,0 +1,113 @@
+*{
+    box-sizing: border-box;
+    padding:0;
+    margin:0;
+}
+
+.sidebar-container {
+  display       : flex;
+  flex-direction: column;
+  position      : absolute;
+  top           : 0;
+  bottom        : 0;
+  left          : 0;
+  right         : 0;
+}
+
+.sidebar-is-mobile .sidebar-toolbar {
+  position: fixed;
+  /* Make sure the toolbar will stay on top of the content as it scrolls past. */
+  z-index : 2;
+}
+
+.loader-container
+{
+   height:3px
+}
+
+h1.sidebar-app-name {
+  margin-left     : 8px;
+  width           : 185px;   
+}
+
+.sidebar-sidenav-container {
+  /* When the sidenav is not fixed, stretch the sidenav container to fill the available space. This
+       causes `<mat-sidenav-content>` to act as our scrolling element for desktop layouts. */
+  flex            : 1;
+  background-color: rgb(223, 222, 223) !important;
+}
+
+.sidebar-is-mobile .sidebar-sidenav-container {
+  /* When the sidenav is fixed, don't constrain the height of the sidenav container. This allows the
+       `<body>` to be our scrolling element for mobile layouts. */
+  flex: 1 0 auto;
+
+}
+
+.mat-drawer {
+  width: 250px;
+  background-color: #03203C;
+}
+
+
+.router-container {
+  padding: 5px 20px;
+}
+
+/* footer{
+    background-color: rgb(8, 10, 8);
+    width: 100%;
+    text-align: center;
+    font-size: 1rem;
+    padding: 1.4rem 0;
+    color: #fff;
+    font-family: 'Roboto Slab', serif;
+    position: relative;
+    z-index: 3;
+    bottom: 0;
+    left:0;
+    right:0;
+} */
+.image-title-holder{
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-left: 0.1rem;
+}
+.letterCircle{
+    margin-right:0.4rem;
+    background-color: #131313;
+    color: #ffff;
+    width: 3.3rem;
+    height: 3.3rem;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 2.6;
+    cursor: pointer;
+    border:none;
+    box-shadow: 2px 2px 2px 1px rgb(241, 241, 245);
+    text-transform: capitalize;
+}
+
+@media screen and (max-width:450px){
+  .letterCircle{
+    margin-right:0.2rem ;
+    background-color: #131313;
+      color: #ffff;
+      width: 2.5rem;
+      height: 2.5rem;
+      border-radius: 50%;
+      text-align: center;
+      line-height: 2;
+      cursor: pointer;
+      border:none;
+      box-shadow: 1px 1px 1px 1px rgb(241, 241, 245);
+      text-transform: capitalize;
+  }
+  .mat-drawer {
+    width:100%;
+    background-color: #03203C;
+  }
+  
+  
+}

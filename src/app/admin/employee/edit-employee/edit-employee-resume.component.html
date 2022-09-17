@@ -1,0 +1,722 @@
+<div>
+  <div class="page-title-wrapper">
+    <div class="mr-3 mt-1 icon" (click)="backToGrid()">
+        <mat-icon>arrow_back</mat-icon>
+    </div>
+    <div class=" page-title">{{title}}</div>
+   </div>
+  <div class="wrapper" >
+    <div class="row">
+     <div class="col-lg-12  col-md-9  col-sm-9">
+         <div  class="card ">
+            <div class="card-body">
+             <!-- <div class="card mb-3 heading-container">
+               <div class="card-body">
+                 <div class="text-center">
+                   <h1 class="heading-title">{{title}}</h1>
+                </div>
+               </div>
+             </div> -->
+              <form [formGroup]="resumeForm" (submit)="updateResumeForm()" class="form">
+                 <div class="row">
+                   <div class="col-lg-4  col-md-12 col-sm-12">
+                     <mat-form-field appearance="outline" floatLabel="always" >
+                         <mat-label>Id</mat-label>
+                         <input matInput placeholder="Id" name="id" formControlName="id" [readonly]="true">
+                     </mat-form-field>
+                   </div>
+                   <div class="col-lg-4 col-md-12 col-sm-12">
+                     <mat-form-field appearance="outline" floatLabel="always" class="pr-3">
+                       <mat-label>Objective</mat-label>
+                       <textarea matInput formControlName="carrierObjective"
+                                title="Carrier Objective" 
+                                cdkTextareaAutosize
+                                #autosize="cdkTextareaAutosize"
+                                cdkAutosizeMinRows="1"
+                                cdkAutosizeMaxRows="5">
+                       </textarea>
+                       <mat-error *ngIf="resumeForm.get('carrierObjective')?.hasError('required')">
+                         This is Required
+                       </mat-error>
+                       <mat-error *ngIf="resumeForm.get('carrierObjective')?.hasError('minlength')">
+                         at least 20 Character long
+                       </mat-error>
+                       <mat-error *ngIf="resumeForm.get('carrierObjective')?.hasError('maxlength')">
+                         at max 256 Character long
+                       </mat-error>
+                   </mat-form-field>
+                   </div>
+                   <div class="col-lg-4  col-md-12 col-sm-12">
+                     <mat-form-field appearance="outline" fxFlex="90" floatLabel="always" class="example-full-width">
+                       <mat-label>Post</mat-label>
+                       <mat-select formControlName="post" placeholder="what you are looking for?" name="post" multiple (selectionChange)="selectedPostValue($event)">
+                           <mat-option *ngFor="let department of departments" [value]="department.departmentId">{{department?.departmentName}}</mat-option>
+                         </mat-select>
+                       <mat-error *ngIf="resumeForm.get('post')?.hasError('required')">
+                           It is required
+                       </mat-error>
+                   </mat-form-field>
+                   </div>
+                 </div>
+                 <div class="card mb-2">
+                   <div class="card-body">
+                     <div class="ml-3">
+                       <h3 >Employee Detail</h3>
+                     </div>
+                   <div class="row">
+                     <div class="col-lg-4  col-md-10 col-sm-10">
+                       <mat-form-field appearance="outline" floatLabel="always">
+                           <mat-label>First Name</mat-label>
+                           <input matInput placeholder="First Name" name="firstName" formControlName="firstName" >
+                           <mat-error *ngIf="resumeForm.get('firstName')?.hasError('required')">
+                             This is Required
+                           </mat-error>
+                           <mat-error *ngIf="resumeForm.get('firstName')?.hasError('pattern')">
+                             Only Character Allowed
+                           </mat-error>
+                           <mat-error *ngIf="resumeForm.get('firstName')?.hasError('minlength')">
+                             at least 4 character allowed
+                           </mat-error>
+                       </mat-form-field>
+                     </div>
+                     <div class="col-lg-4 offset-lg-2 col-md-10 col-sm-10">
+                       <mat-form-field appearance="outline" floatLabel="always" class="pr-3">
+                         <mat-label>Last Name</mat-label>
+                         <input matInput placeholder="Last Name" name="lastName" formControlName="lastName">
+                         <mat-error *ngIf="resumeForm.get('lastName')?.hasError('required')">
+                           It is Required
+                         </mat-error>
+                         <mat-error *ngIf="resumeForm.get('lastName')?.hasError('minlength')">
+                           at least 4 character allowed
+                         </mat-error>
+                         <mat-error *ngIf="resumeForm.get('lastName')?.hasError('pattern')">
+                           Only Character Allowed
+                         </mat-error>
+                     </mat-form-field>
+                     </div>
+                   </div>
+                   <div class="row">
+                     <div class="col-lg-4  col-md-12 col-sm-12 mb-1">
+                       <mat-form-field appearance="outline" floatLabel="always" >
+                           <mat-label>Email</mat-label>
+                           <input matInput placeholder="Email" name="email" formControlName="email" >
+                           <mat-error *ngIf="resumeForm.get('email')?.hasError('required')">
+                            it is required 
+                           </mat-error>
+                           <mat-error *ngIf="resumeForm.get('email')?.hasError('email')">
+                             Invalid Email Pattern
+                           </mat-error>
+                       </mat-form-field>
+                     </div>
+                     <div class="col-lg-4 offset-lg-2 col-md-12 col-sm-12">
+                       <mat-form-field appearance="outline" floatLabel="always" class="pr-3" >
+                         <mat-label>Alternate Email</mat-label>
+                         <input matInput placeholder="Alternate Email" name="alternateEmail" formControlName="alternateEmail" (change)=onAlternatEmailChange() >
+                         <mat-error *ngIf="resumeForm.get('alternateEmail')?.hasError('email')">
+                           Invalid Email Pattern
+                         </mat-error>
+                         <!-- <mat-error *ngIf="resumeForm.get('alternateEmail')?.hasError('similar')">
+                                 email and alternate email must be different
+                         </mat-error> -->
+                     </mat-form-field>
+                     </div>
+                   </div>
+                   <div class="row mb-3">
+                     <div class="col-lg-4  col-md-12 col-sm-12">
+                       <mat-form-field appearance="outline" floatLabel="always" >
+                           <mat-label>Phone</mat-label>
+                           <input matInput placeholder="Phone" name="phone" formControlName="phone" >
+                           <mat-error *ngIf="resumeForm.get('phone')?.hasError('required')">
+                             It is Required
+                           </mat-error>
+                           <mat-error *ngIf="resumeForm.get('phone')?.hasError('pattern')">
+                            Invalid Pattern (Only number allowed strating from 6)
+                           </mat-error>
+                       </mat-form-field>
+                     </div>
+                     <div class="col-lg-4 offset-lg-2  col-md-12 col-sm-12">
+                       <mat-form-field appearance="outline" floatLabel="always" class="pr-3">
+                         <mat-label>Alternate Phone</mat-label>
+                         <input matInput placeholder="Alterate Phone" name="alternatePhone" formControlName="alternatePhone" (change)="onAlternatePhoneChange()" >
+                         <!-- <mat-error *ngIf="resumeForm.get('alternatePhone')?.hasError('pattern')">
+                           Invalid Pattern (Only number allowed strating from 6)
+                         </mat-error>
+                         <mat-error *ngIf="resumeForm.get('alternateEmail')?.hasError('email')">
+                             Invalid Email Pattern
+                           </mat-error> -->
+                     </mat-form-field>
+                     </div>
+                   </div>
+                   <div class="row">
+                     <div class="col-lg-4  col-md-12 col-sm-12">
+                       <mat-form-field appearance="outline" floatLabel="always" >
+                         <mat-label>Select Gender</mat-label>
+                         <mat-select matInput placeholder="Gender" name="gender" formControlName="gender">
+                             <mat-option *ngFor="let gender of genderList" [value]="gender.code">{{ gender.value }}</mat-option>
+                         </mat-select>
+                         <mat-error *ngIf="resumeForm.get('gender')?.hasError('required')">
+                           It is Required
+                         </mat-error>
+                       </mat-form-field>
+                     </div>
+                     <div class="col-lg-4  offset-lg-2 col-md-12 col-sm-12">
+                       <mat-form-field appearance="outline" floatLabel="always" class="pr-3">
+                         <mat-label>Date OF Birth</mat-label>
+                         <input matInput [matDatepicker]="picker" placeholder="Date OF Birth" [max]="maxDate" [min]="minDate" formControlName="dob">
+                          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                          <mat-datepicker #picker></mat-datepicker>
+                          <mat-hint>dd-mm-yyyy</mat-hint>
+                          <mat-error *ngIf="resumeForm.get('dob')?.hasError('required')">
+                           It is Required
+                         </mat-error>
+                     </mat-form-field>
+                     </div>
+                   </div>
+                   </div>
+                 </div>
+                  
+                 <div class="ml-3">
+                   <h3 >Address</h3>
+                 </div>
+                 <div class="ml-1 mt-1 mb-1">
+                   <button type="button" mat-raised-button color="accent" (click)="addAddres()"><i class="fa-solid fa-plus"></i></button>
+                 </div>
+                 <div formArrayName="addreses">
+                   <div class="card mb-1" *ngFor="let address of resumeForm.controls.addreses['controls']; let i=index" [formGroupName]="i">
+                     <div class="card-body">
+                       <div class="row">
+                         <div class="col-lg-12  col-md-12 col-sm-12">
+                           <mat-form-field appearance="outline" floatLabel="always" >
+                             <mat-label>Address</mat-label>
+                             <input  id="addressLine{{i}}" matInput placeholder="Address" name="addressLine" formControlName="addressLine" >
+                             <mat-error *ngIf="address.controls['addressLine']?.errors?.['required']">
+                               It is Required
+                             </mat-error>
+                           </mat-form-field>
+                         </div>
+                         </div>
+                       <div class="row">
+                         <div class="col-lg-4  col-md-12 col-sm-12">
+                           <mat-form-field appearance="outline" floatLabel="always" >
+                             <mat-label>Select Country</mat-label>
+                             <mat-select id="country{{i}}" matInput placeholder="Country" name="country" formControlName="country">
+                                 <mat-option *ngFor="let country of countrList" [value]="country.code">{{ country.value }}</mat-option>
+                             </mat-select>
+                             <mat-error *ngIf="address.controls['country']?.errors?.['required']">
+                               It is Required
+                             </mat-error>
+                           </mat-form-field>
+                         </div>
+                         <div class="col-lg-4 offset-lg-2 col-md-12 col-sm-12">
+                           <mat-form-field appearance="outline" floatLabel="always" class="pr-3">
+                             <mat-label>State</mat-label>
+                             <input  id="state{{i}}" matInput placeholder="State" name="state" formControlName="state" >
+                             <mat-error *ngIf="address.controls['state']?.errors?.['required']">
+                               It is Required
+                             </mat-error>
+                         </mat-form-field>
+                         </div>
+                       </div>
+   
+                       <div class="row">
+                         <div class="col-lg-4  col-md-12 col-sm-12">
+                           <mat-form-field appearance="outline" floatLabel="always" >
+                               <mat-label>City</mat-label>
+                               <input  id="city{{i}}" matInput placeholder="City" name="city" formControlName="city" >
+                               <mat-error *ngIf="address.controls['city']?.errors?.['required']">
+                                 It is Required
+                               </mat-error>
+                           </mat-form-field>
+                         </div>
+                         <div class="col-lg-4 offset-lg-2  col-md-12 col-sm-12">
+                           <mat-form-field appearance="outline" floatLabel="always" class="pr-3">
+                             <mat-label>Pin Code</mat-label>
+                             <input id="pincode{{i}}"  matInput placeholder="pin Code" name="pincode" formControlName="pincode" >
+                             <mat-error *ngIf="address.controls['pincode']?.errors?.['required']">
+                               It is Required
+                             </mat-error>
+                         </mat-form-field>
+                         </div>
+                       </div>
+                       
+                     </div>
+                     <div class="ml-1 mt-1 mb-3">
+                       <button  type="button" *ngIf="resumeForm.controls.addreses.controls.length>1" mat-raised-button color="warn" (click)="deleteAddress(i)"><i class="fa-solid fa-trash"></i></button>
+                     </div>
+                   </div>
+                 </div>
+                 <div class="mt-3 d-flex ">
+                   <div>
+                     <mat-label class="mr-2">Fresher</mat-label>
+                     <!-- <mat-button-toggle-group name="fresher" formControlName="fresher" aria-label="Font Style" (change)="onSelectExperienceCheck($event)">
+                       <mat-button-toggle value="true">Yes</mat-button-toggle>
+                       <mat-button-toggle value="false">No</mat-button-toggle>
+                     </mat-button-toggle-group> -->
+                     <!-- <input type="checkbox" name="fresher" formControlName="fresher" (change)="onSelectExperienceCheck($event)"> -->
+                     <mat-checkbox  name="fresher" formControlName="fresher" (change)="onSelectExperienceCheck($event)" color="primary"></mat-checkbox>
+                   </div>
+                   <div class="ml-3">
+                     <mat-label class="mr-2">Currently Working</mat-label>
+                     
+                     <mat-checkbox  name="working" formControlName="working"  (change)="onSelectWorkingCheck($event)"></mat-checkbox>
+                   </div>
+                 </div>
+ 
+               <div class="mt-3" *ngIf="!hidden">
+                 <div>
+                   <h3>Work Experience</h3>
+                 </div>
+                 <div>
+                   <div class="ml-1 mt-1 mb-1">
+                     <button type="button" mat-raised-button color="accent" (click)="addExperience()"><i class="fa-solid fa-plus"></i></button>
+                   </div>
+                   <div formArrayName="experiences">
+                     <div class="card mb-1" *ngFor="let experience of resumeForm.controls.experiences['controls']; let index=index" [formGroupName]="index">
+                       <div class="card-body">
+                         <div class="row">
+                           <div class="col-lg-4  col-md-12 col-sm-12">
+                             <mat-form-field appearance="outline" floatLabel="always" >
+                               <mat-label>Job Title</mat-label>
+                               <input  id="jobTitle{{index}}" matInput placeholder="Job Title" name="jobTitle" formControlName="jobTitle" >
+                               <mat-error *ngIf="experience.controls['jobTitle']?.errors?.['required']">
+                                 It is Required
+                               </mat-error>
+                             </mat-form-field>
+                           </div>
+                           <div class="col-lg-4 offset-lg-2 col-md-12 col-sm-12">
+                             <mat-form-field appearance="outline" floatLabel="always" >
+                               <mat-label>Organization Name</mat-label>
+                               <input  id="organizationName{{index}}" matInput placeholder="organization Name" name="organizationName" formControlName="organizationName" >
+                               <mat-error *ngIf="experience.controls['organizationName']?.errors?.['required']">
+                                 It is Required
+                               </mat-error>
+                             </mat-form-field>
+                           </div>
+                           </div>
+                         <div class="row">
+                           <div class="col-lg-4  col-md-12 col-sm-12">
+                             <mat-form-field appearance="outline" floatLabel="always" >
+                               <mat-label>Job Description</mat-label>
+                               <textarea id="jobDescription{{index}}" matInput formControlName="jobDescription" name="jobDescription"
+                                title="Job Description" 
+                                cdkTextareaAutosize
+                                #autosize="cdkTextareaAutosize"
+                                cdkAutosizeMinRows="1"
+                                cdkAutosizeMaxRows="5"
+                                >
+                              </textarea>
+                              <mat-error *ngIf="experience.controls['jobDescription']?.errors?.['required']">
+                               It is Required
+                             </mat-error>
+                             </mat-form-field>
+                           </div>
+                           <div class="col-lg-4 offset-lg-2 col-md-12 col-sm-12 mb-lg-2">
+                             <div class="mt-1">
+                               <label class="mr-2">Currently Working</label>
+                               <mat-button-toggle-group id="currentlyWorking{{index}}" name="currentlyWorking" formControlName="currentlyWorking" aria-label="Font Style" (change)="onExperienceWorkingSelect($event,index)">
+                                 <mat-button-toggle value="true">Yes</mat-button-toggle>
+                                 <mat-button-toggle value="false">No</mat-button-toggle>
+                               </mat-button-toggle-group>
+                           </div>
+                           </div>
+                         </div>
+     
+                         <div class="row">
+                           <div class="col-lg-4  col-md-12 col-sm-12">
+                             <mat-form-field appearance="outline" floatLabel="always" >
+                               <mat-label>Start Date</mat-label>
+                               <input id="startDate{{index}}" matInput [matDatepicker]="picker2" placeholder="Start Date" name="startDate" formControlName="startDate">
+                                <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                                <mat-datepicker #picker2></mat-datepicker>
+                                <mat-hint>dd-mm-yyyy</mat-hint>
+                                <mat-error *ngIf="experience.controls['startDate']?.errors?.['required']">
+                                 It is Required
+                               </mat-error>
+                           </mat-form-field>
+                           </div>
+                           <div class="col-lg-4 offset-lg-2 col-md-12 col-sm-12" id="endDateDiv{{index}}" >
+                             <mat-form-field appearance="outline" floatLabel="always" class="pr-3">
+                               <mat-label>End Date</mat-label>
+                               <input id="endDate{{index}}" matInput [matDatepicker]="picker3" placeholder="End Date" name="endDate"  formControlName="endDate">
+                                <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+                                <mat-datepicker #picker3></mat-datepicker>
+                                <mat-hint>dd-mm-yyyy</mat-hint>
+                                <mat-error *ngIf="experience.controls['endDate']?.errors?.['required']">
+                                 It is Required
+                               </mat-error>
+                           </mat-form-field>
+                           </div>
+                         </div>
+                         
+                       </div>
+                       <div class="ml-1 mt-1 mb-3">
+                         <button  type="button" *ngIf="resumeForm.controls.experiences.controls.length>1" mat-raised-button color="warn" (click)="deleteExperience(index)"><i class="fa-solid fa-trash"></i></button>
+                       </div>
+                     </div>
+                   </div>
+                 </div>
+                </div>
+                <div class="mt-2" *ngIf="!hidden">
+                 <div>
+                   <h3>Project</h3>
+                 </div>
+                 <div class="ml-1 mt-1 mb-1">
+                   <button type="button" mat-raised-button color="accent" (click)="addProject()"><i class="fa-solid fa-plus"></i></button>
+                 </div>
+                 <div formArrayName="projects">
+                   <div class="card mb-1" *ngFor="let experience of resumeForm.controls.projects['controls']; let i=index" [formGroupName]="i">
+                     <div class="card-body">
+                       <div class="row">
+                         <div class="col-lg-4  col-md-12 col-sm-12">
+                           <mat-form-field appearance="outline" floatLabel="always" >
+                             <mat-label>Project Name</mat-label>
+                             <input  id="projectName{{i}}" matInput placeholder="Project Name" name="projectName" formControlName="projectName" >
+                             <mat-error *ngIf="project.controls[i]?.errors?.['required']">
+                               It is Required
+                             </mat-error>
+                           </mat-form-field>
+                         </div>
+                         <div class="col-lg-4 offset-lg-2 col-md-12 col-sm-12">
+                           <mat-form-field appearance="outline" floatLabel="always" >
+                             <mat-label>Job Description</mat-label>
+                             <textarea id="projectDescription{{i}}" matInput placeholder="Project Description"   formControlName="projectDescription" name="projectDescription"
+                              title="Project Description" 
+                              cdkTextareaAutosize
+                              #autosize="cdkTextareaAutosize"
+                              cdkAutosizeMinRows="1"
+                              cdkAutosizeMaxRows="5"
+                              >
+                            </textarea>
+                            <mat-error *ngIf="project.controls[i]?.errors?.['required']">
+                             It is Required
+                           </mat-error>
+                           </mat-form-field>
+                         </div>
+                       </div>
+                       
+                     </div>
+                     <div class="ml-1 mt-1 mb-3">
+                       <button  type="button" *ngIf="resumeForm.controls.projects.controls.length>1" mat-raised-button color="warn" (click)="deleteProject(i)"><i class="fa-solid fa-trash"></i></button>
+                     </div>
+                   </div>
+                 </div>
+               </div>
+               <div class="mt-3">
+                 <div>
+                   <h3>Education</h3>
+                 </div>
+                 <div>
+                   <div class="ml-1 mt-1 mb-1">
+                     <button type="button" mat-raised-button color="accent" (click)="addEducation()"><i class="fa-solid fa-plus"></i></button>
+                   </div>
+                   <div formArrayName="educations">
+                     <div class="card mb-1" *ngFor="let education of resumeForm.controls.educations['controls']; let index=index" [formGroupName]="index">
+                       <div class="card-body">
+                         <div class="row">
+                           <div class="col-lg-4  col-md-12 col-sm-12">
+                             <mat-form-field appearance="outline" floatLabel="always" >
+                               <mat-label>Degree</mat-label>
+                               <input  id="degree{{index}}" matInput placeholder="Degree" name="degree" formControlName="degree" >
+                               <mat-error *ngIf="education.controls['degree']?.errors?.['required']">
+                                 It is Required
+                               </mat-error>
+                             </mat-form-field>
+                           </div>
+                           <div class="col-lg-4 offset-lg-2 col-md-12 col-sm-12">
+                             <mat-form-field appearance="outline" floatLabel="always" >
+                               <mat-label>Field Of Study</mat-label>
+                               <input  id="fieldOfStudy{{index}}" matInput placeholder="Field Of Study" name="fieldOfStudy" formControlName="fieldOfStudy" >
+                               <mat-error *ngIf="education.controls['fieldOfStudy']?.errors?.['required']">
+                                 It is Required
+                               </mat-error>
+                             </mat-form-field>
+                           </div>
+                           </div>
+                           <div class="row">
+                             <div class="col-lg-4  col-md-12 col-sm-12">
+                               <mat-form-field appearance="outline" floatLabel="always" >
+                                 <mat-label>Location</mat-label>
+                                 <input  id="location{{index}}" matInput placeholder="Location" name="location" formControlName="location" >
+                                 <mat-error *ngIf="education.controls['location']?.errors?.['required']">
+                                   It is Required
+                                 </mat-error>
+                               </mat-form-field>
+                             </div>
+                             <div class="col-lg-4  offset-lg-2 col-md-12 col-sm-12">
+                               <mat-form-field appearance="outline" floatLabel="always" >
+                                 <mat-label>University/SchoolName</mat-label>
+                                 <input  id="schoolName{{index}}" matInput placeholder="University/SchoolName" name="schoolName" formControlName="schoolName" >
+                                 <mat-error *ngIf="education.controls['schoolName']?.errors?.['required']">
+                                   It is Required
+                                 </mat-error>
+                               </mat-form-field>
+                             </div>
+                           </div>
+     
+                         <div class="row">
+                           <div class="col-lg-4  col-md-12 col-sm-12">
+                             <mat-form-field appearance="outline" floatLabel="always" >
+                               <mat-label>Passing Percentage</mat-label>
+                               <input  id="passingPercentage{{index}}" matInput placeholder="Passing Percentage" name="passingPercentage" formControlName="passingPercentage" >
+                               <mat-error *ngIf="education.controls['passingPercentage']?.errors?.['required']">
+                                 It is Required
+                               </mat-error>
+                             </mat-form-field>
+                           </div>
+                           <div class="col-lg-4 offset-lg-2 col-md-12 col-sm-12">
+                             <mat-form-field appearance="outline" floatLabel="always" class="pr-3">
+                               <mat-label>Completion Date</mat-label>
+                               <input id="completionDate{{index}}" matInput [matDatepicker]="picker4" placeholder="Completion Date" name="completionDate"  formControlName="completionDate">
+                                <mat-datepicker-toggle matSuffix [for]="picker4"></mat-datepicker-toggle>
+                                <mat-datepicker #picker4></mat-datepicker>
+                                <mat-hint>dd-mm-yyyy</mat-hint>
+                                <mat-error *ngIf="education.controls['completionDate']?.errors?.['required']">
+                                 It is Required
+                               </mat-error>
+                           </mat-form-field>
+                           </div>
+                         </div>
+                         
+                       </div>
+                       <div class="ml-1 mt-1 mb-3">
+                         <button  type="button" *ngIf="resumeForm.controls.educations.controls.length>1" mat-raised-button color="warn" (click)="deleteEducation(index)"><i class="fa-solid fa-trash"></i></button>
+                       </div>
+                     </div>
+                   </div>
+                 </div>
+                </div>
+                <div class="mt-3">
+                 <div>
+                   <h3>Language</h3>
+                 </div>
+                 <div>
+                   <div class="ml-1 mt-1 mb-1">
+                     <button type="button" mat-raised-button color="accent" (click)="addLanguage()"><i class="fa-solid fa-plus"></i></button>
+                   </div>
+                   <div formArrayName="languages">
+                     <div class="card mb-1" *ngFor="let language of resumeForm.controls.languages['controls']; let index=index" [formGroupName]="index">
+                       <div class="card-body">
+                         <div class="row">
+                           <div class="col-lg-4  col-md-12 col-sm-12">
+                             <mat-form-field appearance="outline" floatLabel="always" >
+                               <mat-label>Language </mat-label>
+                               <input  id="languageName{{index}}" matInput placeholder="Language" name="languageName" formControlName="languageName" >
+                               <mat-error *ngIf="language.controls['languageName']?.errors?.['required']">
+                                 It is Required
+                               </mat-error>
+                             </mat-form-field>
+                           </div>
+                           <div class="col-lg-4 offset-lg-2  col-md-12 col-sm-12">
+                             <mat-form-field appearance="outline" floatLabel="always" >
+                               <mat-label>Select Proficiency</mat-label>
+                               <mat-select matInput placeholder="Proficient" name="proficient" formControlName="proficient">
+                                   <mat-option *ngFor="let element of fluencListList" [value]="element.code">{{ element.value }}</mat-option>
+                               </mat-select>
+                               <mat-error *ngIf="language.controls['proficient']?.errors?.['required']">
+                                 It is Required
+                               </mat-error>
+                             </mat-form-field>
+                           </div>
+                           </div>
+                         <div class="row">
+                           <div class="col-6 d-flex">
+                             <div class="pt-2 pl-3">
+                               <mat-label>Read</mat-label>
+                               <mat-checkbox class="ml-2" [checked]="true" name="read" formControlName="read"></mat-checkbox>
+                              </div>
+ 
+                              <div class="pt-2 pl-3">
+                               <mat-label>write</mat-label>
+                               <mat-checkbox class="ml-2" [checked]="true" name="write" formControlName="write"></mat-checkbox>
+                              </div>
+ 
+                              <div class="pt-2 pl-3">
+                               <mat-label>speak</mat-label>
+                               <mat-checkbox class="ml-2" [checked]="true" name="speak" formControlName="speak"></mat-checkbox>
+                              </div>
+                             </div>
+                         </div>
+                       </div>
+                       <div class="ml-1 mt-1 mb-3">
+                         <button  type="button" *ngIf="resumeForm.controls.languages.controls.length>1" mat-raised-button color="warn" (click)="deleteEducation(index)"><i class="fa-solid fa-trash"></i></button>
+                       </div>
+                     </div>
+                   </div>
+                 </div>
+                </div>
+                <div class="card mt-2">
+                 <div class="card-body">
+                   <div class="row mt-2">
+                     <div class="col-lg-4  col-md-12 col-sm-12" *ngIf="hiddenCurrentCtc">
+                       <mat-form-field appearance="outline" floatLabel="always" >
+                           <mat-label>Current CTC</mat-label>
+                           <input matInput placeholder="Current CTC" name="currentCTC" formControlName="currentCTC" >
+                           <mat-error *ngIf="resumeForm?.get('currentCTC')?.errors?.['required']">
+                             It is Required
+                           </mat-error>
+                           <mat-error *ngIf="resumeForm.get('currentCTC')?.hasError('pattern')">
+                             Only Number is allowed
+                            </mat-error>
+                       </mat-form-field>
+                     </div>
+                     <div class="col-lg-4  col-md-12 col-sm-12">
+                       <mat-form-field appearance="outline" floatLabel="always" class="pr-3">
+                         <mat-label>Expected CTC</mat-label>
+                         <input matInput placeholder="Expected CTC" name="expectedCTC" formControlName="expectedCTC">
+                         <mat-error *ngIf="resumeForm?.get('expectedCTC')?.errors?.['required']">
+                           It is Required
+                         </mat-error>
+                         <mat-error *ngIf="resumeForm.get('expectedCTC')?.hasError('pattern')">
+                           Only Number is allowed
+                          </mat-error>
+                     </mat-form-field>
+                     </div>
+     
+                     <div class="col-lg-4  col-md-12 col-sm-12">
+                       <mat-form-field appearance="outline" floatLabel="always" class="mr-3" >
+                           <mat-label>Prefered Location</mat-label>
+                           <input matInput placeholder="Prefered Location" name="preferedLocation" formControlName="preferedLocation" >
+                           <mat-error *ngIf="resumeForm?.get('preferedLocation')?.errors?.['required']">
+                             It is Required
+                           </mat-error>
+                           <mat-error *ngIf="resumeForm?.get('preferedLocation')?.errors?.['pattern']">
+                             Only alphanumeric is allowed
+                           </mat-error>
+                       </mat-form-field>
+                     </div>
+                   </div>
+                 </div>
+                </div>
+                
+               <div class="mt-2">
+                 <div>
+                   <h3>Skills</h3>
+                 </div>
+                 <div class="ml-1 mt-1 mb-1">
+                   <button type="button" mat-raised-button color="accent" (click)="addSkill()"><i class="fa-solid fa-plus"></i></button>
+                 </div>
+                 <div formArrayName="skills">
+                   <div class="card mb-1" *ngFor="let skill of resumeForm.controls.skills['controls']; let i=index" [formGroupName]="i">
+                     <div class="card-body">
+                       <div class="row">
+                         <div class="col-lg-4  col-md-12 col-sm-12">
+                           <mat-form-field appearance="outline" floatLabel="always" >
+                             <mat-label>skill Name</mat-label>
+                             <input  id="skillName{{i}}" matInput placeholder="skill Name" name="skillName" formControlName="skillName" >
+                             <mat-error *ngIf="skill?.get('skillName')?.errors?.['required']">
+                               It is Required
+                             </mat-error>
+                           </mat-form-field>
+                         </div>
+                         <div class="col-lg-4 offset-lg-2 col-md-12 col-sm-12">
+                             <mat-form-field appearance="outline" floatLabel="always" class="pr-3">
+                               <mat-label>Skill Experience In Year</mat-label>
+                               <input  id="skillExp{{i}}" matInput placeholder="skill Exp" name="skillExp" formControlName="skillExp">
+                               <mat-error *ngIf="skill?.get('skillExp')?.errors?.['required']">
+                                 It is Required
+                               </mat-error>
+                               <mat-error *ngIf="skill?.get('skillExp')?.errors?.['pattern']">
+                                 Only Numric and floating allowed
+                               </mat-error>
+                             </mat-form-field>
+                         </div>
+                       </div>
+                     </div>
+                     <div class="ml-1 mt-1 mb-3">
+                       <button  type="button" *ngIf="resumeForm.controls.skills.controls.length>1" mat-raised-button color="warn" (click)="deleteSkill(i)"><i class="fa-solid fa-trash"></i></button>
+                     </div>
+                   </div>
+                 </div>
+               </div>
+            <div class="card mt-3">
+             <div class="card-body">
+               <div class="mt-2">
+                 <div>
+                   <h3>Certification And Hobbies(Optional)</h3>
+                 </div>
+                 <div class="row ">
+                   <div class="col-lg-4  col-md-12 col-sm-12">
+                     <mat-form-field appearance="outline" floatLabel="always" >
+                         <mat-label>Cerification</mat-label>
+                        <textarea matInput formControlName="cerification" name="cerification"
+                           title="Cerification" 
+                           cdkTextareaAutosize
+                           #autosize="cdkTextareaAutosize"
+                           cdkAutosizeMinRows="1"
+                           cdkAutosizeMaxRows="5">
+                         </textarea>
+                         <mat-hint>each cerification seprated by comma</mat-hint>
+                     </mat-form-field>
+                   </div>
+                   <div class="col-lg-4 offset-lg-2 col-md-12 col-sm-12">
+                     <mat-form-field appearance="outline" floatLabel="always" class="pr-3">
+                         <mat-label>Hobbies</mat-label>
+                        <textarea matInput formControlName="hobbies" name="hobbies"
+                           title="hobbies" 
+                           cdkTextareaAutosize
+                           #autosize="cdkTextareaAutosize"
+                           cdkAutosizeMinRows="1"
+                           cdkAutosizeMaxRows="5">
+                         </textarea>
+                         <mat-hint>each hobby seprated by comma</mat-hint>
+                     </mat-form-field>
+                   </div>
+                 </div>
+               </div> 
+             </div>
+            </div> 
+             <div class="mt-2">
+               <div>
+                 <h3>Social Media Link(Optional)</h3>
+               </div>
+               <div class="ml-1 mb-1">
+                 <button type="button" mat-raised-button color="accent" (click)="addSocialMediaLink()"><i class="fa-solid fa-plus"></i></button>
+               </div>
+               <div formArrayName="socialMediaLink">
+                 <div class="card mb-1" *ngFor="let experience of resumeForm.controls.socialMediaLink['controls']; let i=index" [formGroupName]="i">
+                   <div class="card-body" >
+                     <div class="row ">
+                       <div class="col-lg-4  col-md-12 col-sm-12">
+                         <mat-form-field appearance="outline" floatLabel="always" >
+                           <mat-label>GitHub</mat-label>
+                           <input id="gitHub{{i}}" matInput placeholder="Git Hub" name="gitHub" formControlName="gitHub" >
+                         </mat-form-field>
+                       </div>
+                       <div class="col-lg-4  col-md-12 col-sm-12">
+                         <mat-form-field appearance="outline" floatLabel="always" class="pr-3">
+                           <mat-label>Linkdin</mat-label>
+                           <input id="linkdin{{i}}" matInput placeholder="LinkdIn" name="linkdin" formControlName="linkdin" >
+                         </mat-form-field>
+                       </div>
+                       <div class="col-lg-4  col-md-12 col-sm-12">
+                         <mat-form-field appearance="outline" floatLabel="always" class="pr-3">
+                           <mat-label>Stack Overflow</mat-label>
+                           <input id="stackOverflow{{i}}" matInput placeholder="Stack Overflow" name="stackOverflow" formControlName="stackOverflow" >
+                         </mat-form-field>
+                       </div>
+                     </div>
+                     
+                   </div>
+                   <div class="ml-1 mt-1 mb-3">
+                     <button  type="button"  mat-raised-button color="warn" (click)="deleteSocialMediaLink(i)"><i class="fa-solid fa-trash"></i></button>
+                   </div>
+                 </div>
+               </div>
+             </div>
+            <div class="d-flex justify-content-center align-content-center">
+             <div class="text-center mt-2 mr-2">
+               <button mat-raised-button color="primary" class="" type="submit" [disabled]="resumeForm.invalid" >update</button>
+             </div> 
+             <div class="text-center mt-2 ml-2">
+               <button mat-raised-button color="primary" class="" type="button" (click)="backToGrid()" >Back</button>
+             </div> 
+            </div>
+             </form>
+            </div>
+         </div>
+ 
+     </div>
+    </div>
+ </div>
+ 
+</div>

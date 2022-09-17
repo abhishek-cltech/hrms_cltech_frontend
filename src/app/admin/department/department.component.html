@@ -1,0 +1,52 @@
+<div  class="wrapper">
+  <div class="page-title-wrapper">
+    <div class=" page-title">{{title}}</div>
+    <div >
+      <button class="mr-1" mat-raised-button type="button" (click)="action('add',0)">Add Department</button>
+    </div>
+   </div>
+    <div class="card">
+      <!-- <div class="text-left ml-1 ">
+        <button class="btn btn-outline-success mr-1"  type="button" (click)="action('add',0)">Add Departments</button>
+        <button class="btn btn-outline-dark ml-1"  type="button" (click)="backToRecruiters()">Back To Recruiters</button>
+      </div> -->
+      <div class="card-body bg-white shadow rounded table-responsive">
+        <!-- <div class="text-center">
+          <h2 style="color:rgb(9, 9, 105) ; font-family: 'Times New Roman', Times, serif; font-size: 1.5rem;">{{title}}</h2>
+        </div> -->
+        
+        <table datatable [dtOptions]="dtOptions" class="table table-striped  table-hover " >
+          <thead></thead>
+          <tbody *ngIf="departments?.length != 0">
+            <tr *ngFor="let department of departments">
+              <td  >{{ department.id }}</td>
+              <td >{{ department.departmentName }}</td>
+              <td [ngClass]="{
+                'active':department.active==true,
+                'inactive':department.active==false
+              
+              }" >{{ (department.active==true)?"Active":"Inactive"}}</td>
+              <td >
+                <div class="d-flex justify-content-center">
+                  <div>
+                    <!-- <button class="btn btn-outline-primary mr-1" color="primary" (click)="action('edit',department.id)"><mat-icon>edit</mat-icon></button> -->
+                    <mat-icon class="mr-1 text-secondary icon	" (click)="action('edit',department.id)">edit</mat-icon>
+                  </div>
+                  <div>
+                    <!-- <button class="btn btn-outline-secondary ml-1" (click)="action('view',department.id)"><mat-icon>visibility</mat-icon></button> -->
+                    <mat-icon class="ml-1 text-secondary icon	"(click)="action('view',department.id)">visibility</mat-icon>
+                  </div>
+                </div>
+  
+              </td>
+            </tr>
+          </tbody>
+          <tbody *ngIf="departments?.length == 0">
+            <tr>
+              <td colspan="7" class="no-data-available text-lg-center">No Data Found!</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
