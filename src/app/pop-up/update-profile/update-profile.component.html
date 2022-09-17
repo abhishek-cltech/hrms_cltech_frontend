@@ -1,0 +1,52 @@
+<div class="wrapper">
+    <div class="heading-div" >
+        <h2 class="m-0">{{data?.title}}</h2>
+        <button mat-icon-button (click)=" close()" >
+            <mat-icon class="">close</mat-icon>
+        </button>
+    </div>
+        <div  class="container-fluid">
+           <div class="form-div">
+            <form [formGroup]="form" (submit)="editProfile()">
+                <div fxLayout="row" fxLayoutAlign="space-between" class="sm-d-block">
+                    <mat-form-field appearance="outline"  fxFlex="50" floatLabel="always" class="pr-4" >
+                        <mat-label>First Name</mat-label>
+                        <input  matInput placeholder="First Name" name="firstName" formControlName="firstName" >
+                        <mat-error *ngIf="form.get('firstName')?.hasError('required')">
+                            It is required
+                        </mat-error>
+                        <mat-error *ngIf="form.get('firstName')?.hasError('minlength')">
+                          atleast 3 character allowed
+                        </mat-error>
+                    </mat-form-field>
+                 
+                    <mat-form-field appearance="outline"  fxFlex="50" floatLabel="always" class="pl-4" >
+                        <mat-label>Last Name</mat-label>
+                        <input  matInput placeholder="Last Name" name="lastName" formControlName="lastName">
+                        <mat-error *ngIf="form.get('lastName')?.hasError('required')">
+                            It is required
+                        </mat-error>
+                        <mat-error *ngIf="form.get('lastName')?.hasError('minlength')">
+                            atleast 3 character allowed
+                          </mat-error>
+                    </mat-form-field>
+                </div>
+                  <hr class="mb-2"/>
+             <div class="d-flex justify-content-center align-content-center">
+                <div class="text-center mr-1">
+                    <button mat-raised-button color="primary" class="" type="submit"
+                        [disabled]="form.invalid"><mat-icon  *ngIf="showSpinner" ><mat-spinner diameter="20" color="accent"></mat-spinner></mat-icon>Edit</button>
+                </div>
+                <div class="text-center ml-1 mr-1 ">
+                    <button type="button" mat-raised-button color="accent"  (click)="close()">Close</button>
+                </div>
+                <!-- <div class="text-center ml-1 ">
+                    <button   type="button" mat-raised-button color="warn" (click)="goToDepartmentGridPage()">Back</button>
+                </div> -->
+            </div>
+            </form>
+           </div>
+            
+        </div>
+
+    </div>

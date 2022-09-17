@@ -1,0 +1,51 @@
+<div class="wrapper">
+  <div class="page-title-wrapper">
+    <div class=" page-title">{{title}}</div>
+    <div >
+      <button class="mr-1" mat-raised-button type="button" (click)="action('add',0)">Add Recruiter</button>
+    </div>
+   </div>
+  <div class="card">
+    <div class="card-body bg-white shadow rounded  table-responsive">
+      <!-- <div class="text-center">
+        <h2 style="color:rgb(4, 4, 97) ; font-family: 'Times New Roman', Times, serif; font-size: 1.5rem;">Recruiters</h2>
+      </div> -->
+      
+      <table datatable [dtOptions]="dtOptions" class="table  table-striped table-hover  w-100">
+        <thead></thead>
+        <tbody *ngIf="users?.length != 0">
+          <tr *ngFor="let user of users">
+            <td>{{ user.id }}</td>
+            <td>{{ user.email }}</td>
+            <td >
+               <div *ngIf="user?.department else not_assigned">
+                <ul *ngFor="let department of user?.department" >
+                  <li style="list-style:none; margin: 0;padding:0;line-height: normal;display: block;">
+                    <mat-checkbox  [disabled]="false" [checked]='true'>{{department.departmentName}}</mat-checkbox>
+                  </li>
+                 </ul>
+               </div>
+               <ng-template #not_assigned style="margin-left: 2rem;">N.A</ng-template>
+            </td>
+            
+            <td>
+              <div class="d-flex justify-content-center">
+                <div>
+                  <!-- <button mat-raised-button color="primary" (click)="action('edit',user.id)">Edit</button> -->
+                  <mat-icon class="mr-1  icon	" color="primary" (click)="action('edit',user.id)">edit</mat-icon>
+                  <mat-icon class="mr-1 icon" color="primary" (click)="action('remove',user.id)">remove_circle</mat-icon>
+                </div>
+              </div>
+
+            </td>
+          </tr>
+        </tbody>
+        <tbody *ngIf="users?.length == 0">
+          <tr>
+            <td colspan="7" class="no-data-available text-lg-center">No Data Found!</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

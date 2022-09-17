@@ -1,0 +1,143 @@
+<div class="wrapper-register">
+    <div class="form-container_wrapper">
+        <div class="form-container ">
+            <form [formGroup]="registrationForm" (submit)="registration()" class="form">
+                <div class="logo-container">
+                    <img src="/assets/image/cl-technologies-logo.png" alt="">
+                </div>
+                <div class="form-title">
+                    <h2>Create Account</h2>
+                </div>
+                <div class="row">
+                   <div class="col-lg-12 col-sm-12  col-md-12">
+                        <mat-form-field appearance="outline" floatLabel="always" >
+                            <mat-label>First Name</mat-label>
+                            <input matInput placeholder="First Name" name="firstName" formControlName="firstName">
+                            <mat-error *ngIf="registrationForm.get('firstName')?.hasError('required')">
+                                It is required
+                            </mat-error>
+                            <mat-error *ngIf="registrationForm.get('firstName')?.hasError('minlength')">
+                                atleast 3 character is required
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div> 
+                <div class="row">
+                    <div class="col-lg-12 col-sm-12  col-md-12">
+                         <mat-form-field appearance="outline" floatLabel="always" >
+                             <mat-label>Last Name</mat-label>
+                             <input matInput placeholder="Last Name" name="lastName" formControlName="lastName">
+                             <mat-error *ngIf="registrationForm.get('lastName')?.hasError('required')">
+                                 It is required
+                             </mat-error>
+                             <mat-error *ngIf="registrationForm.get('lastName')?.hasError('minlength')">
+                                atleast 3 character is required
+                            </mat-error>
+                         </mat-form-field>
+                     </div>
+                 </div> 
+                <div class="row">
+                    <div class="col-lg-12 col-sm-12  col-md-12">
+                        <mat-form-field appearance="outline" floatLabel="always" >
+                            <mat-label>Email</mat-label>
+                            <input matInput placeholder="Email" name="email" formControlName="email">
+                            <mat-error *ngIf="registrationForm.get('email')?.hasError('required')">
+                                It is required
+                            </mat-error>
+                            <mat-error *ngIf="registrationForm.get('email')?.hasError('email')">
+                                invalid pattern
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-12 col-sm-12  col-md-12">
+                        <mat-form-field appearance="outline" fxFlex="100" floatLabel="always" >
+                            <mat-label>Password</mat-label>
+                            <input  matInput [type]="showPassword?'text':'password'" placeholder="Password" name="password" formControlName="password" >
+                              <mat-icon class="icon" matSuffix (click)="toggleVisibilityOfPassword()">{{showPassword?'visibility_off':'visibility'}}</mat-icon>
+                            <mat-error *ngIf="registrationForm.get('password')?.hasError('required')">
+                                It is required
+                            </mat-error>
+                            <mat-error *ngIf="registrationForm.get('password')?.hasError('minlength')">
+                                atleast 8 character
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-12  col-sm-12  col-md-12">
+                        <mat-form-field appearance="outline" floatLabel="always" >
+                            <mat-label>Confirm Password</mat-label>
+                            <input matInput placeholder="Confirm Password" name="confirmPassword" [type]="showConfirmPassword?'text':'password'"
+                                formControlName="confirmPassword" >
+                                <mat-icon class="icon" matSuffix (click)="toggleVisibilityOfConfirmPassword()">{{showConfirmPassword?'visibility_off':'visibility'}}</mat-icon>
+                            <mat-error *ngIf="registrationForm.get('confirmPassword')?.hasError('required')">
+                                It is required
+                            </mat-error>
+                            <mat-error *ngIf="registrationForm.get('confirmPassword')?.hasError('passwordMismatch')">
+                                password and confirmPassword must be same
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12 col-sm-12  col-md-12">
+                        <mat-form-field appearance="outline" fxFlex="100" floatLabel="always" >
+                            <mat-label>Role</mat-label>
+                            <mat-select formControlName="role">
+                                <mat-option *ngFor="let role of roles" [value]="role.id">{{role.name}}</mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="registrationForm.get('role')?.hasError('required')">
+                                It is required
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12 col-sm-12  col-md-12">
+                        <mat-form-field appearance="outline" fxFlex="100" floatLabel="always" >
+                            <mat-label>Security Questions</mat-label>
+                            <mat-select formControlName="securityCode">
+                                <mat-option *ngFor="let securityQuestions of securityQuestions" [value]="securityQuestions.code">{{securityQuestions.value}}</mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="registrationForm.get('role')?.hasError('required')">
+                                It is required
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12 col-sm-12  col-md-12">
+                         <mat-form-field appearance="outline" floatLabel="always" >
+                             <mat-label>Security Answer</mat-label>
+                             <input matInput placeholder="Security Answer" name="questionAnswer" formControlName="questionAnswer">
+                             <mat-error *ngIf="registrationForm.get('questionAnswer')?.hasError('required')">
+                                 It is required
+                             </mat-error>
+                             <mat-error *ngIf="registrationForm.get('questionAnswer')?.hasError('minlength')">
+                                atleast 3 character is required
+                            </mat-error>
+                         </mat-form-field>
+                     </div>
+                 </div> 
+                <div class="text-center ">
+                    <button mat-raised-button color="primary" class="" type="submit"
+                        [disabled]="registrationForm.invalid">Submit</button>
+                </div>
+            </form>
+            <div class="mt-1">
+                <div class="devider">
+                    <p class="text-center">---------Already have an account?---------</p>
+                </div>
+                <div class="text-center">
+                    <button class="button-btn" type="button" (click)="goToLoginPage()">Sign
+                        In</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

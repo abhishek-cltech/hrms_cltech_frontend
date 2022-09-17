@@ -1,0 +1,15 @@
+
+ 
+.color{
+    color:rgb(113, 113, 192)
+}
+  
+  .cross{
+    position: fixed;
+    top: 7px;
+    right: 47px;
+  }
+  .cross i{
+    font-size: 2rem;
+
+  }

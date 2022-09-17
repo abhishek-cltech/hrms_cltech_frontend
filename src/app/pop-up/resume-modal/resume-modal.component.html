@@ -1,0 +1,210 @@
+<div class=" resume-holder p-3  d-flex flex-column justify-content-center align-items-center" style="height:auto">
+    <div class="cross" mat-dialog-close>
+        <i class="fa-solid fa-xmark"></i>
+    </div>
+    <div class="card"  >
+        <div class="card-body" #resumePdf  id="resumePdf" style="padding:3rem" >
+            <div style="margin-bottom: 1.5rem; display: flex; flex-direction: column;align-items: center; justify-content: center;">
+                <div style="text-align: center;" *ngFor="let post of employee?.posts">
+                    <span style="text-align: center;font-size:1.5rem; font-weight: 500;color:rgb(113, 113, 192)">{{post?.departmentName +" "}} </span>
+                </div>
+                <p style="font-size:1.5rem;text-align: center; font-weight: 500;color:rgb(113, 113, 192)">Resume</p>
+            </div>
+            <table style="width:100%">
+                <tr>
+                    <td  style="width:60%; vertical-align: initial;">
+                        <div>
+                            <h1  style="color:rgb(113, 113, 192)" class="nameOfEmployee ">{{(employee?.employeeDetail?.firstName | titlecase ) +" "+ employee?.employeeDetail.lastName|titlecase }}</h1>
+                        </div>
+                    </td>
+                    <td  style="width:40%; vertical-align: initial;">
+                        <div  *ngIf="!hideEmployeeDetail; else showDashdash"  >
+                            <p style="margin:0; padding:0; line-height: normal; width:250px; word-wrap: break-word;" id="address">
+                                {{(employee?.employeeDetail?.addreses[0].addressLine) +" "+(employee?.employeeDetail?.addreses[0].country)+" "+(employee?.employeeDetail?.addreses[0].state)+" "+(employee?.employeeDetail?.addreses[0].city) +" "+employee?.employeeDetail?.addreses[0].pincode}}</p>
+                            <p style="margin:0; padding:0 ;line-height: normal;" id="contact">(+91) {{+" "+employee?.employeeDetail?.phone}}</p>
+                            <p style="margin:0; padding:0;" id="email">{{employee?.employeeDetail?.email}}</p>
+                        </div>
+                        <ng-template  #showDashdash>
+                            <div >
+                                <p>---------</p>
+                                <p>---------</p>
+                                <p>---------</p>
+                            </div>
+                        </ng-template>
+                    </td>
+                </tr>
+            </table>
+
+            <!-- objective -->
+            <table  >
+               <tr>
+                <td style="width:40%">
+                    <h2 class="" id="carrierObjective" style="margin:0; padding:0;color:rgb(113, 113, 192)">Objective</h2>
+                </td>
+               </tr>
+                <tr>
+                    <td  >
+                            <div  >
+                                <p id="carrierObjectiveDescription" style="margin:0; padding:0; width:350px; word-wrap: break-word;">
+                                    {{employee?.carrierObjective}}
+                                </p>
+                            
+                        </div>
+                    </td>
+                </tr>
+            </table>
+
+            <!-- Education and skill -->
+            <table style="width:100% " >
+                <tr>
+                    <td style="width:60%;vertical-align: initial;" >
+                        <h2 style="margin:0; padding:0;color:rgb(113, 113, 192)" >Education</h2>
+                    </td>
+                    <td  style="width:40%;vertical-align: initial;" >
+                        <h2 style="margin:0; padding:0 ;color:rgb(113, 113, 192)">Skill</h2>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width:60%;vertical-align: initial;" >
+                        <div *ngFor="let education of employee?.educations" >
+                            <div>
+                                <p id="schooleName" style="margin:0; padding:0; line-height: normal;font-weight: 500;">
+                                   {{education?.schoolName+","+education.location+"-"+education?.fieldOfStudy}}
+                                </p>
+                                <p id="aggregate" style="margin:0; padding:0; line-height: normal;">
+                                    Aggregate: {{education.passingPercentage}}%
+                                </p>
+                                <p id="duration">
+                                   {{education.completionDate | date:'MMMM y'}}
+                                </p>
+                            </div>
+                        </div>
+                    </td>
+                    <td style="width:40%;vertical-align: initial;" >
+                        <div style="margin:0; padding:0; word-wrap: break-word; width:250px">
+                            {{employee?.totalSkill}}
+                        </div>
+                    </td>
+                </tr>
+                 <!-- Experience -->
+                <tr>
+                    <td style="width:60%; vertical-align: initial;" >
+                        <h2 style="margin:0; padding:0 ;color:rgb(113, 113, 192)"class="carrierObjective">Experience</h2>
+                    </td>
+                    <td style="width:40%; vertical-align: initial;" ><h2  *ngIf="employee?.socialMediaLinks" style="margin:0; padding:0 ;color:rgb(113, 113, 192)" class="socialMedialink ">Social Media Link</h2></td>
+                </tr>
+                <tr>
+                    <td style="width:60% ;vertical-align: initial;"  >
+                        <div>
+                            <div *ngFor="let experience of employee?.experiences let i=index;" >
+                                <p id="orgnization{{i}}" style="margin:0; padding:0;line-height: normal; font-weight: 500;word-wrap: break-word; width:250px">
+                                   {{experience.organizationName+","+experience.jobTitle}}
+                                </p>
+                                <p id="role{{i}}" style="margin:0; padding:0;word-wrap: break-word; width:250px">
+                                   {{experience?.jobDescription}}
+                                </p>
+                                <p id="startDateAndEndDate{{i}}"  >
+                                   {{experience.startDate | date:'MMMM y'}}-{{(experience.endDate)?(experience.endDate| date:'MMMM y'):"Currenty Working"}}
+                                </p>
+                            </div>
+                        </div>
+                    </td>
+                    <td style="width:40%;vertical-align: initial;" >
+                        <div  *ngIf="employee?.socialMediaLinks">
+                            <div *ngIf="!hideEmployeeDetail; else showDashDash">
+                              <div >
+                                 <p style="margin:0; padding:0 ;line-height: normal;width:200px; word-wrap: break-word;"  id="socialMedia1">Github</p>
+                                 <p style="margin:0; padding:0 ;">{{(employee?.socialMediaLinks?.gitHub)?employee.socialMediaLinks.gitHub:"------------------"}}</p>
+                             </div>
+                             <div class="mt-1">
+                                 <p style="margin:0; padding:0 ;line-height: normal;width:200px; word-wrap: break-word;"id="socialMedia2">LinkdIn</p>
+                                 <p style="margin:0; padding:0 ;">{{(employee?.socialMediaLinks?.linkedIn)?employee.socialMediaLinks.linkedIn:"------------------"}}</p>
+                             </div>
+                             <div class="mt-1">
+                                 <p style="margin:0; padding:0 ;line-height: normal;width:200px; word-wrap: break-word;" id="socialMedia3">stackoverflow</p>
+                                 <p style="margin:0; padding:0 ;">{{(employee?.socialMediaLinks?.stackOverflow)?employee.socialMediaLinks.stackOverflow:"------------------"}}</p>
+                             </div>
+                            </div>
+                            <ng-template  #showDashDash>
+                             <div class="col col-lg-5 offset-md-1">
+                                 <p>------------</p>
+                                 <p>------------</p>
+                                 <p>------------</p>
+                             </div>
+                         </ng-template>
+                         </div>
+                    </td>
+                </tr>
+            </table>
+
+            <!--Projects  -->
+            <table style="width:100%" >
+                <tr>
+                    <td style="width:60%;vertical-align: initial;">
+                        <h2 style="margin:0; padding:0 ;color:rgb(113, 113, 192)" class="carrierObjective ">Projects</h2>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width:60%;vertical-align: initial;">
+                        <div>
+                            <div *ngFor="let project of employee?.projects let i=index;" >
+                                <p id="porprojectName{{i}}" style="margin:0; padding:0;line-height: normal;">
+                                    {{project.projectName}}
+                                </p>
+                                <p id="projectDescription{{i}}" >
+                                   {{project.projectDescription}}
+                                </p>
+                            </div>
+                           </div>
+                    </td>
+                    <td></td>
+                </tr>
+            
+            </table>
+
+            <!--Declaration-->
+            <table style="width:100%">
+                <tr>
+                    <td style="width:70%">
+                        <h2 style="margin:0; padding:0 ;color:rgb(113, 113, 192)" class="carrierObjective ">Declaration</h2>
+                    </td>
+                    <td></td>
+                </tr>
+
+                <tr>
+                    <td style="width:70%">
+                        <p style="margin:0; padding:0 ;width:450px; word-wrap: break-word;;">I hereby declare that the information provided is true to the best of my knowledgeand belief.</p>
+                    </td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td style="width:60%; margin-top:1rem;">
+                        <div>
+                            <p style="margin:0; padding:0;line-height: normal;">{{getDate() |date:'dd/MM/yyyy'}}</p>
+                            <p style="margin:0; padding:0 ;">Place:{{employee?.employeeDetail?.addreses[0].city}}</p>  
+                         </div>
+                    </td>
+                    <td></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+           <!--Buttons-->
+    <div class="mt-2">
+        <div class="d-flex">
+            <div class="">
+                <button mat-raised-button color="warn" (click)="downloadAsDocx()">Export to Doc</button>
+            </div>
+            <div class="ml-3">
+                <button mat-raised-button color="primary" type="button" (click)="openPDF()">Export To PDF</button>
+            </div>
+            <div class="ml-3">
+                <button mat-raised-button color="primary" type="button" (click)="close()">Close</button>
+            </div>
+
+            <div class="ml-2 mt-2">
+                <mat-checkbox  (change)="hideContactDetail($event.checked)"> Hide Detail</mat-checkbox>
+            </div>
+        </div>
+    </div>
+</div>

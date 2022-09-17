@@ -1,0 +1,58 @@
+<div class="wrapper" >
+  <div class="card w-75 ">
+    <div class="card-body bg-white shadow rounded table-responsive w-100 ">
+      <h1 class="heading">{{title}} ({{employees?.length }})</h1>
+      <table datatable [dtOptions]="dtOptions" class="table table-bordered table-striped table-hover ">
+        <thead>
+          <!-- <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Salary</th>
+      <th>Department</th>
+      <th>Action</th>
+     
+    </tr> -->
+        </thead>
+        <tbody *ngIf="employees?.length != 0">
+          <tr *ngFor="let employee of employees">
+            <!-- <td>{{ (person.id==972)?"yes":person.id}}</td> -->
+
+            <td>{{ employee.id }}</td>
+            <td>{{ employee.name }}</td>
+            <td>{{ employee.email }}</td>
+            <td>{{ employee.phone }}</td>
+            <td>{{ employee.totalSkill }}</td>
+            <td>{{ employee.totalExperience}}</td>
+            <!-- <td>{{ person.lastName }}</td>
+      <td>{{ person.lastName }}</td> -->
+
+            <td>
+              <div class="d-flex justify-content-around">
+                <div>
+                  <button mat-raised-button color="primary" (click)="action('view',employee.id)">View</button>
+                </div>
+                <!-- <div>
+            <button mat-raised-button color="accent" (click)="action('view',employee.id)">View</button>
+          </div> -->
+                <!-- <div>
+                  <button mat-raised-button color="warn" (click)="action('preview-resume',employee.id)">View</button>
+                </div> -->
+                <div>
+                  <button mat-raised-button color="warn" (click)="action('preview',employee.id)">Preview</button>
+                </div>
+
+              </div>
+
+            </td>
+          </tr>
+        </tbody>
+        <tbody *ngIf="employees?.length == 0">
+          <tr>
+            <td colspan="7" class="no-data-available text-lg-center">No Data Found!</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

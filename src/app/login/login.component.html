@@ -1,0 +1,51 @@
+<div class="wrapper-login">
+  <div class="form-container_wrapper">
+    <div class="form-container ">
+        <form [formGroup]="loginForm" (submit)="signIn()" class="form">
+          <div class="logo-container">
+              <img src="/assets/image/cl-technologies-logo.png" alt="CLTECH">
+          </div>
+          <div class="form-title"><h2>Sign-In </h2></div>
+            <div class="row">
+                <div class="col-lg-12  col-sm-12  col-md-12">
+                  <mat-form-field appearance="outline" floatLabel="always"  >
+                      <mat-label>Email</mat-label>
+                      <input matInput placeholder="Email" name="email" formControlName="email" >
+                      <mat-error *ngIf="loginForm.get('email')?.hasError('required')">
+                          It is required
+                     </mat-error>
+                     <mat-error *ngIf="loginForm.get('email')?.hasError('email')">
+                       invalid pattern
+                  </mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-12  col-sm-12  col-md-12">
+                  <mat-form-field appearance="outline" fxFlex="100" floatLabel="always" >
+                      <mat-label>Password</mat-label>
+                      <input matInput [type]="showPassword?'text':'password'" placeholder="Password" name="password" formControlName="password" >
+                      <mat-icon class="icon" matSuffix (click)="toggleVisibilityOfPassword()">{{showPassword?'visibility_off':'visibility'}}</mat-icon>
+                      <mat-error *ngIf="loginForm.get('password')?.hasError('required')">
+                          It is required
+                     </mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+                <div class="text-center ">
+                    <button mat-raised-button color="primary" class=""type="submit" [disabled]="loginForm.invalid" >Sign In</button>
+                  </div> 
+        </form><br>
+        <div class="text-center ">
+          <a type="button" style="color:blue;" (click)="isForgotPassword()">Forgot Password ?</a>
+        </div> 
+        <div class="mt-1">
+          <div class="devider">
+              <p class="text-center">--------------------New to CLTECH?---------------------</p>
+          </div>
+        <div class="text-center ">
+          <button class="button-btn" type="button" (click)="goToRegistrationPage()">Create CLTech Account</button>
+        </div>
+  </div>
+  </div>
+</div>

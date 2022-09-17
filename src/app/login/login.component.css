@@ -1,0 +1,146 @@
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+mat-form-field {
+  display: block;
+  font-family:'Roboto ', serif;
+  font-weight: 500;
+  width:20rem !important;
+}
+
+.wrapper-login {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: url('/assets/image/form-background.jpg');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  position: relative;
+  /* filter: brightness(99.89%); */
+}
+
+.logo-container{
+  margin-bottom: 0.2rem;
+}
+
+.logo-container img{
+  height: 45px;
+    width: 93px;
+}
+
+.form {
+  text-align: center;
+}
+
+.form-container_wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  position: absolute;
+  border-radius: 0.5rem;
+  /* box-shadow: 1px 1px 1px 0px rgb(240, 238, 238); */
+}
+
+.form-container {
+  height: 445px;
+  padding: 1rem;
+}
+
+.form-title {
+  font-weight: 900;
+  color: #130f40;
+  text-transform: capitalize;
+}
+.devider{
+    color: #767676;
+    font-weight: 400;
+    line-height: 1;
+    font-size: 12px;
+    background-color: #fff;
+    margin:1rem 0;
+}
+.button-btn{
+  color:#ffff;
+  background-color:#10ac84 ;
+  padding:0.6rem 0.8rem;
+  border-radius: 4px;
+  box-shadow: 1px 1px 1px 0px rgb(240, 238, 238);
+  border:none;
+  cursor: pointer;
+
+}
+
+
+/* On screens that are 992px or less, set the background color to blue */ 
+ /* @media screen and (max-width: 992px) {
+  
+  .form-container{
+      height:35vh;
+      border-radius: 4px;
+      box-shadow: 3px 3px 3px 3px rgb(182 181 181);
+      border: none;
+      padding: 0.6rem;
+      
+      
+  }
+  mat-form-field {
+    width: 100%!important;
+    font-family:sans-serif;
+    font-weight: 400;
+  }
+
+  .form-container_wrapper{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding:0.6rem;
+  }
+
+  .form-title{
+    font-weight: 400;
+    color: rgb(38, 38, 224);
+  }
+ 
+} */
+
+  @media screen and (max-width: 400px) {
+  
+    /* .form-container{
+        height:25vh;
+        border-radius: 4px;
+        box-shadow: 3px 3px 3px 3px rgb(182 181 181);
+        border: none;
+        padding: 0.4rem;
+        
+        
+        
+    } */
+
+    mat-form-field {
+      width: 100%!important;
+      font-family:'Roboto ', serif;
+      font-weight: 300;
+    }
+    /* .form-container_wrapper{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding:0.4rem;
+    }
+   
+    .form-title{
+      font-weight: 300;
+      color: rgb(38, 38, 224);
+    } */
+  
+}

@@ -1,0 +1,9 @@
+<button class="save-button" 
+         mat-raised-button
+         [formGroup]="myForm"
+         [disabled]="myForm.invalid"
+         type="button"
+         (click)="childFormSubmit()"
+        >
+        {{button}}
+</button>
