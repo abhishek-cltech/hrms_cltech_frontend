@@ -465,7 +465,15 @@ export class AddApplicantComponent implements OnInit {
   //          "departmentId":post.id,
   //     }
   //   });
-    employee.posts=this.resumeForm.value.post;;
+
+  let departmentidsArray:Array<any> | any=this.resumeForm.value.post
+   let postArray=this.departments.filter((department:any)=>{
+      if(departmentidsArray.includes(department.departmentId)){
+         return department;
+      }
+    })
+    employee.posts=postArray;
+    // employee.posts=this.resumeForm.value.post;
     console.log(this.resumeForm.value)
     //console.log(this.resumeForm.value.post)
     let socialMediaLink=new SocialMediaLink();
