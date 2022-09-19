@@ -12,15 +12,6 @@
     <div class="card-body bg-white shadow rounded table-responsive w-100 ">
       <table #table datatable [dtOptions]="dtOptions"  class="table table-bordered table-striped table-hover ">
         <thead>
-          <!-- <tr>
-      <th>ID</th>
-      <th>Name</th>
-      <th>Email</th>
-      <th>Salary</th>
-      <th>Department</th>
-      <th>Action</th>
-     
-    </tr> -->
         </thead>
         <tbody *ngIf="employees?.length != 0">
           <tr *ngFor="let employee of employees">
@@ -41,7 +32,7 @@
               <div fxLayout="row" fxFlexAlign="center center " fxLayoutGap="0.15rem">
                 <div>
                   <!-- <button mat-raised-button color="primary" (click)="action('edit',employee.id)">Edit</button> -->
-                  <button mat-stroked-button mat-icon-button color="primary" (click)="action('edit',employee.id)"> <mat-icon  class="icon"  >edit</mat-icon></button>
+                  <button mat-stroked-button mat-icon-button color="primary" (click)="action('view',employee.id)"> <mat-icon  class="icon"  >edit</mat-icon></button>
                 </div>
                 <!-- <div>
             <button mat-raised-button color="accent" (click)="action('view',employee.id)">View</button>
