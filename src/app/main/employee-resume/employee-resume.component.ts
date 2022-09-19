@@ -94,6 +94,7 @@ export class EmployeeResumeComponent implements OnInit {
        'post':event.source.value
      })
   }
+  
 
   setDobCalender(){
     const currentYear = moment().year();
@@ -455,17 +456,16 @@ export class EmployeeResumeComponent implements OnInit {
     employee.preferedLocation=this.resumeForm.value.preferedLocation?this.resumeForm.value.preferedLocation:null;
     employee.certifications=this.resumeForm.value.cerification?this.resumeForm.value.cerification:null;
     employee.hobbies=this.resumeForm.value.hobbies?this.resumeForm.value.hobbies:null;
-   let postArray:any=this.resumeForm.value.post;
-   let posts= postArray.map((post:any) => {
-      return{
-           "id":null,
-           "departmentName":post.departmentName,
-           "departmentId":post.id,
-      }
-    });
-    employee.posts=posts;
-    console.log(this.resumeForm.value)
-    //console.log(this.resumeForm.value.post)
+
+      //post
+  let departmentidsArray:Array<any> | any=this.resumeForm.value.post
+  let postArray=this.departments.filter((department:any)=>{
+     if(departmentidsArray.includes(department.departmentId)){
+        return department;
+     }
+   })  
+   employee.posts=postArray;
+
     let socialMediaLink=new SocialMediaLink();
     let socialLink=(this.resumeForm.value.socialMediaLink && this.resumeForm.value.socialMediaLink.length>0)?
                      this.resumeForm.value.socialMediaLink:null;
@@ -539,7 +539,7 @@ export class EmployeeResumeComponent implements OnInit {
 
      });
     }
-   // console.log(employee)
+   console.log(employee)
 
      this.employeeService.saveEmployeeResume(employee).subscribe((data)=>{
       if(data!=null && data.response!=null && data.status==HttpStatus.SUCCESS){
