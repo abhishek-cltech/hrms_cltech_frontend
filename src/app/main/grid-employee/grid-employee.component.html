@@ -1,35 +1,30 @@
 <div class="wrapper" >
-  <div class="card  ">
-    <div class="row">
-      <div class="">
-        <h1 class="heading">{{title}} ({{employees?.length }})</h1>
-      </div>
-     
-      
-      <div class="mb-3 d-flex justify-content-between mt-3 " style="padding: 0 2rem;">
-        <form [formGroup]="form" (submit)="save()">
-        <div class="row">
+  <div class="card ">
+    <div class="mb-3 d-flex justify-content-between mt-3 " style="padding: 0 2rem;">
+     <div class="">
+      <h1>
+        Applicant ({{employees?.length }})
+     </h1>
+    </div>
+    <form [formGroup]="form" (submit)="save()">
+      <div class="row">
+       
+  
+         <div class="d-flex justify-content-space-between">
+        <input class="form-control" type="file" id="formFile" (change)="onFileSelect($event)" #UploadFileInput>
+        <button   [ngClass]=" !hideSpinner ? 'button-spinner' : 'mat-button-spinner'" mat-raised-button color="primary"  type="submit"
+        [disabled]="form.invalid" >
+        <mat-icon *ngIf="!hideSpinner"><mat-spinner  color="accent" diameter="20">
+        </mat-spinner></mat-icon>upload
+        </button>
+       </div>
          
-    
-            <div class="d-flex justify-content-space-between">
-            <input class="form-control" type="file" id="formFile" (change)="onFileSelect($event)" #UploadFileInput>
-            <button   [ngClass]=" !hideSpinner ? 'button-spinner' : 'mat-button-spinner'" mat-raised-button color="primary"  type="submit"
-            [disabled]="form.invalid" >
-            <mat-icon *ngIf="!hideSpinner"><mat-spinner  color="accent" diameter="20">
-            </mat-spinner></mat-icon>upload
-            </button>
-          </div>
-           
-          </div>
-        </form>
       </div>
-
+  </form>
     </div>
     <div class="card-body bg-white shadow rounded table-responsive w-100 ">
-      
       <table datatable [dtOptions]="dtOptions" class="table table-bordered table-striped table-hover ">
         <thead>
-
           <!-- <tr>
       <th>ID</th>
       <th>Name</th>
@@ -39,8 +34,6 @@
       <th>Action</th>
      
     </tr> -->
-
-
         </thead>
         <tbody *ngIf="employees?.length != 0">
           <tr *ngFor="let employee of employees">
@@ -58,14 +51,14 @@
             <td>
               <div class="d-flex justify-content-around">
                 <div>
-                  <button mat-raised-button color="primary" (click)="action('view',employee.id)">View</button>
+                  <button mat-raised-button color="primary" (click)="action('edit',employee.id)">Edit</button>
                 </div>
                 <!-- <div>
             <button mat-raised-button color="accent" (click)="action('view',employee.id)">View</button>
           </div> -->
-                <!-- <div>
+                <div>
                   <button mat-raised-button color="warn" (click)="action('preview-resume',employee.id)">View</button>
-                </div> -->
+                </div>
                 <div>
                   <button mat-raised-button color="warn" (click)="action('preview',employee.id)">Preview</button>
                 </div>
