@@ -1,10 +1,10 @@
-import { AfterViewInit, ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Subject } from 'rxjs';
@@ -27,6 +27,7 @@ import { SnackbarService } from 'src/app/common/utility/snackbar.service';
 export class GridEmployeeComponent implements OnInit{
 
   backenedUrl = environment.BACKEND_URL;
+ 
   dtOptions: DataTables.Settings = {};
   @ViewChild(DataTableDirective, { static: false }) datatableElement!: DataTableDirective;
   @ViewChild("table") table: any;
@@ -36,6 +37,7 @@ export class GridEmployeeComponent implements OnInit{
   groupMasters:any;
   extraParam={"extraParam":this.localStorageService.getLocalStorage('USER_NAME_SESSION_ATTRIBUTE_NAME')};
   employees:any;
+ 
    displayedColumn:any=[
 
      { 
@@ -94,13 +96,14 @@ export class GridEmployeeComponent implements OnInit{
     public dialog: MatDialog,
     private localStorageService:LocalStorageService,
     private groupMasterService:GroupMasterService,
+    private formBuilder: FormBuilder,
     private refreshPage:RefreshPageService,
     private employeeResumeService:EmployeeResumeService,
-    private snackbar:SnackbarService,
-    private route: ActivatedRoute,
+    private snackbar:SnackbarService
     ) {}
   
   dtTrigger: Subject<any> = new Subject<any>();
+ 
   ngOnInit(): void {
     this.loadDataTable();
     this.getGroupMasterByGroupName();
@@ -110,7 +113,7 @@ export class GridEmployeeComponent implements OnInit{
     const that = this;
     this.dtOptions = {
       pagingType: 'full_numbers',
-      pageLength: 10,
+      pageLength: 5,
       serverSide: true,
       processing: true,
       searchDelay:1500,
@@ -158,9 +161,10 @@ export class GridEmployeeComponent implements OnInit{
       this.openResumeDialogBox(id);
     }else if(action=="add"){
       this.router.navigate(["/admin/applicant/add-applicant"])
-    }else if(action=="bulkUpload"){
-      this.router.navigate(["excel-upload"],{ relativeTo: this.route })
+    }else if(action=="upload"){
+      this.router.navigate(["/admin/applicant/bulk-upload"])
     }
+
   }
 
   openResumeDialogBox(id:number){
@@ -202,9 +206,7 @@ export class GridEmployeeComponent implements OnInit{
        
       }
     }) 
-  }
-  
-  
+  } 
   
   getGroupMasterByGroupName(){
     this.groupMasterService.getAllGroupMasters().subscribe((data)=>{
@@ -215,7 +217,4 @@ export class GridEmployeeComponent implements OnInit{
       }
     });
   }
-   
-
- 
 }   

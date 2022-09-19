@@ -28,6 +28,7 @@ import { EditEmployeeResumeComponent } from './edit-employee-resume/edit-employe
 import { ResumePreviewComponent } from './resume-preview/resume-preview.component';
 import { EmployeeListComponent } from './employee-list/employee-list.component';
 import {MatIconModule} from '@angular/material/icon';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
 
@@ -79,6 +80,7 @@ const routes: Routes = [
     DataTablesModule,
     jqxGridModule,
     MatIconModule,
+    MatProgressSpinnerModule,
     FlexLayoutModule
   ]
 })

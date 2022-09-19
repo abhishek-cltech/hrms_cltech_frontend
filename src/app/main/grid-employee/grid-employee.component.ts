@@ -1,5 +1,5 @@
-import { ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { ChangeDetectorRef, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -14,6 +14,8 @@ import { HttpStatus } from 'src/app/constant/enum';
 import { ResumeModalComponent } from 'src/app/pop-up/resume-modal/resume-modal.component';
 import { LocalStorageService } from 'src/app/common/utility/localStorage.service';
 import { RefreshPageService } from 'src/app/common/utility/refreshPage.service ';
+import { SnackbarService } from 'src/app/common/utility/snackbar.service';
+import { EmployeeResumeService } from '../shared/employee-resume.service';
 @Component({
   selector: 'app-grid-employee',
   templateUrl: './grid-employee.component.html',
@@ -28,6 +30,15 @@ export class GridEmployeeComponent implements OnInit ,OnDestroy{
   datatableElement!: DataTableDirective;
   title="Applicant"
   confirmation:any;
+  flag = true;
+  hideSpinner=true;
+  @ViewChild('UploadFileInput', { static: false })
+  uploadFileInput!: ElementRef;
+   fileUploadForm!: FormGroup;
+   fileInputLabel!: string;
+   form: FormGroup = this.formBuilder.group({
+    myfile: ['',[Validators.required]]
+  });
   extraParam={"extraParam":this.localStorageService.getLocalStorage('USER_NAME_SESSION_ATTRIBUTE_NAME')};
   employees:any;
    displayedColumn:any=[
@@ -94,6 +105,9 @@ export class GridEmployeeComponent implements OnInit ,OnDestroy{
     private router:Router,
     public dialog: MatDialog,
     private localStorageService:LocalStorageService,
+    private formBuilder: FormBuilder,
+    private snackbarService: SnackbarService,
+    private service:EmployeeResumeService,
     private refreshpageService:RefreshPageService
     ) {
       
@@ -190,4 +204,42 @@ export class GridEmployeeComponent implements OnInit ,OnDestroy{
       
     });
   }
-}   
+  onFileSelect(event:any) {
+    let af = ['application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 'application/vnd.ms-excel']
+    if (event.target.files.length > 0) {
+      const file = event.target.files[0];
+      //  console.log(file);
+      let type = file.type;
+      
+      if (file["type"]!=="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet") {
+        alert('Only EXCEL Docs Allowed!');
+      } else {
+        this.fileInputLabel = file.name;
+        this.form.get('myfile')?.setValue(file);
+      }
+    }
+  }
+
+  save(){
+    console.log(this.form.value.myfile);
+      if (!this.form.valid) {
+        return ;
+      }
+        this.hideSpinner = false;
+       let formData = new FormData();
+       formData.append('file', this.form.value.myfile);
+       this.service.bulkUpload(formData).subscribe((data:any)=>{
+        if(data!=null && data.status===HttpStatus.SUCCESS){
+          this.hideSpinner = true;
+          this.snackbarService.openSucessSnackBar(data.message,"");
+          this.refreshpageService.refresh();
+          // this.flag= true;
+        }else{
+          this.snackbarService.openErrorSnackBar(data.message)
+          this.hideSpinner = true;
+        }
+      })
+
+
+  }
+}
