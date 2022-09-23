@@ -78,7 +78,6 @@ export class EmployeeResumeComponent implements OnInit {
     cerification:['',[]],
     socialMediaLink:this.fb.array([]),
     hobbies:[''],
-    //post:[[{'id':0,"departmentName":""}],Validators.required]
     post:[,Validators.required]
   },
   
@@ -459,7 +458,7 @@ export class EmployeeResumeComponent implements OnInit {
 
       //post
   let departmentidsArray:Array<any> | any=this.resumeForm.value.post
-  let postArray=this.departments.filter((department:any)=>{
+   let postArray=this.departments.filter((department:any)=>{
      if(departmentidsArray.includes(department.departmentId)){
         return department;
      }

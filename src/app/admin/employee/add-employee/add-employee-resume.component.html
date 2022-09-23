@@ -47,16 +47,16 @@
                    </mat-form-field>
                    </div>
                    <div class="col-lg-4  col-md-12 col-sm-12">
-                     <mat-form-field appearance="outline" fxFlex="90" floatLabel="always" class="example-full-width">
-                       <mat-label>Post</mat-label>
-                       <mat-select formControlName="post" placeholder="what you are looking for?" name="post" multiple (selectionChange)="selectedPostValue($event)">
-                           <mat-option *ngFor="let department of departments" [value]="department">{{department?.departmentName}}</mat-option>
-                         </mat-select>
-                       <mat-error *ngIf="resumeForm.get('post')?.hasError('required')">
-                           It is required
-                       </mat-error>
-                   </mat-form-field>
-                   </div>
+                    <mat-form-field appearance="outline" fxFlex="90" floatLabel="always" class="example-full-width">
+                      <mat-label>Post</mat-label>
+                      <mat-select formControlName="post" placeholder="what you are looking for?" name="post" multiple (selectionChange)="selectedPostValue($event)">
+                          <mat-option *ngFor="let department of departments" [value]="department.departmentId">{{department?.departmentName}}</mat-option>
+                        </mat-select>
+                      <mat-error *ngIf="resumeForm.get('post')?.hasError('required')">
+                          It is required
+                      </mat-error>
+                  </mat-form-field>
+                  </div>
                  </div>
                  <div class="card mb-2">
                    <div class="card-body">

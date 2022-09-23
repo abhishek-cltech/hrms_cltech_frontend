@@ -80,7 +80,6 @@ export class AddApplicantComponent implements OnInit {
     cerification:['',[]],
     socialMediaLink:this.fb.array([]),
     hobbies:[''],
-    //post:[[{'id':0,"departmentName":""}],Validators.required]
     post:[,Validators.required]
   },
   
@@ -457,25 +456,15 @@ export class AddApplicantComponent implements OnInit {
     employee.preferedLocation=this.resumeForm.value.preferedLocation?this.resumeForm.value.preferedLocation:null;
     employee.certifications=this.resumeForm.value.cerification?this.resumeForm.value.cerification:null;
     employee.hobbies=this.resumeForm.value.hobbies?this.resumeForm.value.hobbies:null;
-   //let postArray:any=this.resumeForm.value.post;
-  //  let posts= postArray.map((post:any) => {
-  //     return{
-  //          "id":null,
-  //          "departmentName":post.departmentName,
-  //          "departmentId":post.id,
-  //     }
-  //   });
 
   let departmentidsArray:Array<any> | any=this.resumeForm.value.post
    let postArray=this.departments.filter((department:any)=>{
-      if(departmentidsArray.includes(department.departmentId)){
-         return department;
-      }
-    })
-    employee.posts=postArray;
-    // employee.posts=this.resumeForm.value.post;
-    console.log(this.resumeForm.value)
-    //console.log(this.resumeForm.value.post)
+     if(departmentidsArray.includes(department.departmentId)){
+        return department;
+     }
+   })  
+   employee.posts=postArray;
+    
     let socialMediaLink=new SocialMediaLink();
     let socialLink=(this.resumeForm.value.socialMediaLink && this.resumeForm.value.socialMediaLink.length>0)?
                      this.resumeForm.value.socialMediaLink:null;
