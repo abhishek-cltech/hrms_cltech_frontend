@@ -5,8 +5,8 @@
 export const environment = {
   production: false,
   BACKEND_URL:'http://localhost:8082/cltech/',
+  // BACKEND_URL:'http://35.154.87.91:8082/cltech/',
    ADMIN_URL:"/admin"
-
 
 };
 
